@@ -1,0 +1,35 @@
+<h1>Create Project</h1>
+{{#if x}}
+<p>No Clients to create Projects</p>
+   <button onclick="location.href='/clients/{{userId}}'"> Create Client </button>
+ 
+{{else}}
+   
+ <form id="createproject-form" action="/projects/create" method="POST">
+    
+
+    <label for="projectName">Project Name: *</label>
+    <input id="projectName" name="projectName" type="text" value="{{pname}}" required>
+    <br>
+    <label for="projectDescription">Project Description *</label>
+    <input id="projectDescription" name="projectDescription" type="text" value="{{pdescription}}" required>
+    <br>
+     <label for="clientName">Client Name: *</label>
+    <select id="clientName" name="clientName">
+        {{#each clients}}
+               <option value="{{this.cfirstName}} {{this.clastName}}">{{this.cfirstName}} {{this.clastName}}</option>
+        {{/each}}
+    </select>
+    <br>
+
+    <p>required (*)</p>
+    
+    <br>
+    <button type="submit">Submit</button>  
+</form>
+{{/if}}
+
+{{#if error}}
+    <h4>Error: </h4>
+    <p class="is-red"> {{error}} </p>
+{{/if}}

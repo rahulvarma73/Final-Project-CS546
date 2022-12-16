@@ -1,0 +1,26 @@
+<h1>project Details</h1>
+<dl>
+  <dt>Project Name: </dt>
+  <dd>{{pname}}</dd>
+  <br>
+  <dt>projectDescription: </dt>
+  <dd>{{pdescription}}</dd>
+  <br>
+  <dt>Client Name: </dt>
+  <dd>{{clientName}}</dd>
+  <br>
+  <dt>Start Date: </dt>
+  <dd>{{sDate}}</dd>
+  <br>
+   <dt>End Date: </dt>
+  <dd>{{eDate}}</dd>
+  <br>
+  <dt> Total Duration: </dt>
+  <dd>{{totalDuration}}</dd>
+</dl> 
+
+<br>
+
+<button onclick="location.href='/projects/project/{{projectId}}/edit'" >Update</button>
+<br>
+<button class="is-red" onclick="location.href='/projects/delete/{{projectId}}'">Delete Project</button>

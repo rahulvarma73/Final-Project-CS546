@@ -1,0 +1,39 @@
+<h1>Client Details</h1>
+<form id="projectDetails-update-form" action="projects/project/{{projectId}}/edit" method="POST">
+    
+
+    <label for="projectName">Project Name: *</label>
+    <input id="projectName" name="projectName" type="text" value="{{pname}}" required>
+    <br>
+    <label for="projectDescription">Project Description: *</label>
+    <input id="projectDescription" name="projectDescription" type="text" value="{{pdescription}}" required>
+    <br>
+    <label for="clientName">Client Name: *</label>
+    <select id="clientName" name="clientName">
+        {{#each clients}}
+               <option value="{{this.cfirstName}} {{this.clastName}}">{{this.cfirstName}} {{this.clastName}}</option>
+        {{/each}}
+    </select>
+    <br>
+    <label for="startDate">Start Date: </label>
+    <input id="startDate" name="startDate" type="text" value="{{sDate}}" disabled>
+    <br>
+    <label for="endDate">End Date: </label>
+    <input id="endDate" name="endDate" type="text" value="{{eDate}}" disabled>
+    <br>
+    <label for="totalDuration">Total Duration </label>
+    <input id="totalDuration" name="totalDuration" type="text" value="{{totalDuration}}" disabled>
+    <br>
+
+    <p>required (*)</p>
+    
+    <br>
+    <button type="submit">Update</button>  
+</form>
+
+<button onclick="location.href='/projects/project/{{projectIds}}'">Cancel</button>
+
+{{#if error}}
+    <h4>Error: </h4>
+    <p class="is-red"> {{error}} </p>
+{{/if}}
