@@ -35,6 +35,7 @@ const checkUser = async (user, password) => {
   password = check.validpassword(password);
   const users = await user_collection();
   const userObj = await users.findOne({ email: user });
+  // const userId = userObj._id;
   if (
     userObj &&
     userObj.hashedPassword &&
@@ -108,8 +109,8 @@ const updateUserByID = async (id, firstName, lastName, gender, password) => {
 module.exports = {
   createUser,
   checkUser,
+  getUserByID,
   deleteUserByID,
   updateUserByID,
   getUserByEmail,
-  getUserByID,
 };

@@ -68,7 +68,7 @@ body {
     border-bottom: 1px dashed #333;
   }
 
-  button {
+  /* button {
     align-items: center;
     background-color: #FFFFFF;
     border: 1px solid rgba(0, 0, 0, 0.1);
@@ -113,7 +113,9 @@ body {
     box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
     color: rgba(0, 0, 0, 0.65);
     transform: translateY(0);
+  } */
+
+
+  .form-control {
+    max-width: 9cm;
   }
-
-
-  

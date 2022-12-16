@@ -5,6 +5,8 @@ const clientFunctions = require("./clients");
 const users = mongoCollections.users;
 const { ObjectId } = require("mongodb");
 const helpers1 = require("../helpers1");
+const helpers = require('../helpers');
+const validname = helpers.validname;
 
 const createProject = async (
   userId,
@@ -12,11 +14,14 @@ const createProject = async (
   projectDescription,
   clientName
 ) => {
-  userId = helpers1.checkInputIsObjectId(userId);
-  projectName = helpers1.pname(projectName);
-  projectDescription = helpers1.checkInputIsString(projectDescription);
+  // userId = helpers1.name(userId);  <<<<<<Check Need to validate ids
+  // projectName = helpers1.name(projectName);   <<<<<< CHeck Names should allow spaces for project names also numbers
+  // // projectName = helpers1.name(projectName);
 
-  //   write a function thats gets  clientId from users dataBase
+  // projectDescription = helpers1.name(projectDescription); <<<<<<Check all texts must be allowed!!!!!!!!!!!!!!!!!
+  // projectDescription = validname(projectDescription);
+
+    // >>>>>>>>>>>>>>>write a function thats gets  clientId from users dataBase<<<<<<<<<<<<<<<<
 
   const usersCollection = await users();
   // check whether user is present
@@ -98,7 +103,7 @@ const updateProject = async (
   userId = helpers1.checkInputIsObjectId(userId);
   projectId = helpers1.checkInputIsObjectId(projectId);
 
-  projectName = helpers1.pname(projectName);
+  projectName = helpers1.checkInputIsString(projectName);
 
   projectDescription = helpers1.checkInputIsString(projectDescription);
 
@@ -210,7 +215,6 @@ const getAllProjects = async (userId) => {
   }
   return allProjects;
 };
-
 // get All projects by client name (need client information)
 // should look at it
 const getAllProjectsOfClient = async (userId, clientName) => {
@@ -227,12 +231,11 @@ const getAllProjectsOfClient = async (userId, clientName) => {
     throw "Error: no user with that Id";
   }
 };
-
 // should look at it
 // search by project name ( need client information)
 const getProjectByName = async (userId, projectName) => {
   userId = helpers1.checkInputIsString(userId);
-  projectName = helpers1.pname(projectName);
+  // projectName = helpers1.pname(projectName);
   const projectsCollection = await projects();
   // check whether it exists or not
   var project = await projectsCollection

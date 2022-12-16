@@ -5,6 +5,7 @@ const bcrypt = require("bcryptjs");
 const data = require("../data");
 const { userData } = require("../data");
 const { checkUser } = require("../data/users");
+const { getAllProjects } = require("../data/projects");
 const dataUsers = data.userData;
 
 router.route("/").get(async (req, res) => {
@@ -82,17 +83,25 @@ router.route("/login").post(async (req, res) => {
 
 router.route("/home").get(async (req, res) => {
   //code here for GET
-
   if (req.session.user) {
     let user = await userData.getUserByEmail(req.session.user);
-    let userId = user._id;
+    let pdata = false;
+    try{
+      pdata = await getAllProjects(user._id);
+      if(pdata.length === 0) {pdata = false};
+    }catch(error){
+      console.log(error.message || error);
+    }
+    
     return res.render("home", {
       title: "Home",
       user: req.session.user,
       date: new Date().toUTCString(),
-      userId: userId,
+      userId: user._id,
+      pdata: pdata,
     });
   }
+
   return res
     .status(400)
     .render("error", { message: "User not logged in!", title: "Error" });
