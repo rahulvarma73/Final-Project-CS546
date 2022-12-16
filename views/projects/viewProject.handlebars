@@ -1,4 +1,4 @@
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark me-0 ms-0 mt-0 mb-3">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark me-0 ms-0 mt-0 mb-3">
   <a class="ms-3 navbar-brand me-5" href="/">Time Manager</a>
   <div class="me-5 navbar-dark navbar" id="navbarNav">
     <ul class="navbar-nav">
@@ -16,35 +16,33 @@
   <button class="ms-5 btn btn-warning" onclick="location.href='/logout'" type="button">Logout</button>
 </nav>
 
-    projectName: projectName,
-    projectDescription: projectDescription,
-    clientName: clientName,
-    clientId: clientId,
-    startDate: startDate,
-    endDate: endDate,
-    totalDuration: totalDuration,
-    tasks: tasks,
 
 <hr>
 <div class="grid">
   <dl>
     <dt>Project Name: </dt>
-    <dd>{{fname}}</dd>
+    <dd>{{projectName}}</dd>
     <br/>
     <dt>Project Description: </dt>
-    <dd>{{lname}}</dd>
+    <dd>{{projectDescription}}</dd>
     <br/>
     <dt>Client Name: </dt>
-    <dd>{{email}}</dd>
+    <dd>{{clientName}}</dd>
     <br/>
     <dt>Client ID </dt>
-    <dd>{{gender}}</dd>
+    <dd>{{clientId}}</dd>
     <br/>
     <dt>Start Date </dt>
-    <dd>{{gender}}</dd>
+    <dd>{{startDate}}</dd>
     <br/>
-    <dt>Start Date </dt>
-    <dd>{{gender}}</dd>
+    <dt>End Date </dt>
+    <dd>{{endDate}}</dd>
+    <br/>
+    <dt>Total Duration </dt>
+    <dd>{{totalDuration}}</dd>
+    <br/>
+    <dt>Tasks </dt>
+    <dd>{{tasks}}</dd>
   </dl> 
 </div>
 

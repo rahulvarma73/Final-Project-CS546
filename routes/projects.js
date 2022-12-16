@@ -67,7 +67,7 @@ router
   });
 
 //   get all projects of user
-router.route("/:userId").get(async (req, res) => {
+router.route("/:userId").get(async (req, res) => {  
   try {
     // if not logged in send him to login page
     if (!req.session.user) {
@@ -90,6 +90,7 @@ router.route("/:userId").get(async (req, res) => {
     });
   } catch (e) {
     // redirect to error page
+    console.log(e)
   }
 });
 

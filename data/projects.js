@@ -199,7 +199,6 @@ const deleteProject = async (id) => {
 };
 const getAllProjects = async (userId) => {
   userId = helpers1.checkInputIsObjectId(userId);
-
   let user = await userFunctions.getUserByID(userId);
   let allClients = await clientFunctions.getAllClient(user._id);
   let allProjectIds = [];
