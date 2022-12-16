@@ -27,7 +27,7 @@ router
         x: x,
         userId: user_Id,
       });
-    } catch (e) {}//<<<<<<<<<<<<<<< wHY emPTY atleast console log???????????????????????????????????????????????/
+    } catch (e) {}
   })
   .post(async (req, res) => {
     try {
@@ -50,8 +50,8 @@ router
         projectDescription,
         clientName
       );
-     //   All projects
-     return res.redirect("/projects/" + user_Id);
+      //   All projects
+      return res.redirect("/projects/" + user_Id);
     } catch (error) {
       return res.status(400).render("projects/createProject", {
         title: "Create Project",
@@ -60,14 +60,12 @@ router
         clients: allClients,
         error: error,
         userId: user_Id,
-        //<<<<<<<<<<< You need to get all clients list and send it again or select input will be empty!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        //>>>>>>>> AND CHECK YOUR OTHER STATEMENTS TOOOOOOOO!!!!!! ESPECIALLY TRY CATCH, CONSOLE LOG ERRORS, SOME WERE LEFT OUT EMPTY IN CATCH(){} <<<<<<<<<<<<
       });
     }
   });
 
 //   get all projects of user
-router.route("/:userId").get(async (req, res) => {  
+router.route("/:userId").get(async (req, res) => {
   try {
     // if not logged in send him to login page
     if (!req.session.user) {
@@ -90,7 +88,6 @@ router.route("/:userId").get(async (req, res) => {
     });
   } catch (e) {
     // redirect to error page
-    console.log(e)
   }
 });
 
@@ -106,15 +103,16 @@ router.route("/project/:projectId").get(async (req, res) => {
     );
     // get project by project ID
     const project = await projectData.getProjectById(req.params.projectId);
-    const user = await userData.getUserByEmail(req.session.user);
-    const client = await clientData.getClientById(user._id, project.clientId);
-    // console.log(project)
     // render HTML handlebar
     return res.render("projects/projectData", {
       title: "project Details",
-      pdata: project,
+      pname: project.projectName,
+      pdescription: project.projectDescription,
+      clientName: project.clientName,
+      sDate: project.startDate,
+      eDate: project.endDate,
+      totalDuration: project.totalDuration,
       projectId: req.params.projectId,
-      email: client.email,
     });
   } catch (e) {
     console.log(e);
@@ -198,31 +196,12 @@ router.route("/project/:projectId/edit").get(async (req, res) => {
       totalDuration: project.totalDuration,
       projectId: req.params.projectId,
     });
-  } catch (error) {  
-// router
-//   .route('/:id') // <<<<<<<<<<<<<<<<<<<<<< I CREATED A ROUTER TO VIEW DETAILS OF COMPLETE PROJECT, geT
-//   .get(async (req,res) => {
-//     try{
-//       // NOt COMPLETE DO VALIDATION OF ID AND HANDLE ERRORS, TESTING NEEDED!!!!!!!!!!!!
-//       if (!req.session.user) {return res.render("users/userLogin", { title: "Login" });}
-//       const pdata = await projectData.getProjectById(req.params.id);
-//       return res.render("/projects/viewProject", {
-//         pdata: pdata
-//       })
-
-//     }catch(error){
-      console.error(error);
-      return res
-        .status(500)
-        .render("error", { message: error.message || error, title: "Error" });      
-    }
-    //id is project id don't be confused. Use helpers Validation as reference if needed! <<<<<<<<<<<<<<<<<<<<<<<<<<<,,,,,
-  // })
-  // .post(async (req,res) => {
-  //   return res.render("/projects/updateProject", {
-  //     pdata: pdata //<<<<<<<< Updata variables accordingly after looking at updateProject.handleabar
-  //   })
-  // });//  <<<<<<<<<<<<<<<<<<<An UPdate project also needed!!>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  } catch (error) {
+    console.error(error);
+    return res
+      .status(500)
+      .render("error", { message: error.message || error, title: "Error" });
+  }
 });
 router.route("/project/:projectId/edit").post(async (req, res) => {
   //code here for POST
