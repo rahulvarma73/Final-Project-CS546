@@ -1,0 +1,34 @@
+<form id="details-update-form" action="/user/profile/edit" method="post">
+    <p><strong>Email:</strong> {{email}}</p>
+
+    <label for="userFirstName">First Name: *</label>
+    <input id="userFirstName" name="userFirstName" type="text" value="{{fname}}" required>
+    <br>
+    <label for="userLastName">Last Name: *</label>
+    <input id="userLastName" name="userLastName" type="text" value="{{lname}}" required>
+    <br>
+    <label for="userGender">Gender: *</label>
+    <select id="userGender" name="userGender">
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Others">Others</option>
+    </select>
+    <br>
+    <label for="passwordInput">New Password: </label>
+    <input id="passwordInput" name="passwordInput" type="password">
+    <br>
+
+    <p>required (*)</p>
+    
+    <br>
+    <button type="submit">Update</button>
+    <br>
+    <button type="reset">Reset</button>
+</form>
+
+<button onclick="location.href='/user/profile'">Cancel</button>
+
+{{#if error}}
+    <h4>Error: </h4>
+    <p class="is-red"> {{error}} </p>
+{{/if}}

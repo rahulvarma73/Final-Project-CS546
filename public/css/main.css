@@ -1,0 +1,119 @@
+/*
+You will style your page using at least 10 CSS selectors for general CSS styling. You will place the CSS in its own file. You must style the is-green class to make text have a color of #00E676 and is-red class to make text have a color of #FF3D00.
+*/
+.is-green {
+    color: #00E676;
+}
+
+.is-red {
+    color: #FF3D00;
+}
+
+body {
+    background: #fefefe;
+    font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+    font-size: 15pt;
+  }
+  
+  main {
+    max-width: 75%;
+    margin: auto;
+  }
+  
+  header {
+    border-bottom: 1px solid #afafaf;
+  }
+  
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: #333;
+    margin-bottom: 5px;
+  }
+  
+  h1 {
+    font-size: 2rem;
+  }
+  
+  h2 {
+    font-size: 1.75rem;
+  }
+  
+  h3 {
+    font-size: 1.5rem;
+  }
+  
+  h4 {
+    font-size: 1.25rem;
+  }
+  
+  h5 {
+    font-size: 1.15rem;
+  }
+  
+  h6 {
+    font-size: 1.05rem;
+  }
+  
+  p {
+    font-size: 1rem;
+    line-height: 2;
+  }
+  
+  .post {
+    width: 75%;
+    border-bottom: 1px dashed #333;
+  }
+
+  button {
+    align-items: center;
+    background-color: #FFFFFF;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: .25rem;
+    box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+    box-sizing: border-box;
+    color: rgba(0, 0, 0, 0.85);
+    cursor: pointer;
+    display: inline-flex;
+    font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    justify-content: center;
+    line-height: 1.25;
+    margin: 0;
+    min-height: 3rem;
+    padding: calc(.875rem - 1px) calc(1.5rem - 1px);
+    position: relative;
+    text-decoration: none;
+    transition: all 250ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: baseline;
+    width: auto;
+  }
+  
+  button:hover,
+  button:focus {
+    border-color: rgba(0, 0, 0, 0.15);
+    box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+    color: rgba(0, 0, 0, 0.65);
+  }
+  
+  button:hover {
+    transform: translateY(-1px);
+  }
+  
+  button:active {
+    background-color: #F0F0F1;
+    border-color: rgba(0, 0, 0, 0.15);
+    box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
+    color: rgba(0, 0, 0, 0.65);
+    transform: translateY(0);
+  }
+
+
+  

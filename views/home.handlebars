@@ -1,0 +1,18 @@
+{{!--
+
+If the user is logged in, and 'GET /home' endpoint is called, you will render this view that displays:
+-Username (which you stored in the session when they logged in) for the currently logged in user
+-The current date/time
+
+Also, you will need to have a hyperlink at the bottom of the page to /logout.
+
+--}}
+
+<h1>{{user}}</h1>
+
+<h3>Date: {{date}}</h3>
+
+
+<button onclick="location.href='/logout'" type="button">Logout</button>
+<br>
+<button onclick="location.href='/user/profile'" type="button">My Details</button>

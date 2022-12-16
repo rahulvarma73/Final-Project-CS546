@@ -1,0 +1,21 @@
+<h1>User Deletion</h1>
+
+<h4>Please enter your password to confirm deletion!</h4>
+
+<form id="login-form" action="/user/delete" method="post">
+    <h5>Email: </h5>
+    <p>{{email}}</p>
+    <br>
+    <label for="passwordInput">Password: </label>
+    <input id="passwordInput" name="passwordInput" type="password">
+    <br>
+    <button class="is-red" type="submit">Delete</button>
+</form>
+
+{{!-- <button onclick="history.back()">Cancel</button> --}}
+<button onclick="location.href='/user/profile'">Cancel</button>
+
+{{#if error}}
+    <h5>Error: </h5>
+    <p class="is-red"> {{error}} </p>
+{{/if}}
