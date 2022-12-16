@@ -106,16 +106,15 @@ router.route("/project/:projectId").get(async (req, res) => {
     );
     // get project by project ID
     const project = await projectData.getProjectById(req.params.projectId);
+    const user = await userData.getUserByEmail(req.session.user);
+    const client = await clientData.getClientById(user._id, project.clientId);
+    // console.log(project)
     // render HTML handlebar
     return res.render("projects/projectData", {
       title: "project Details",
-      pname: project.projectName,
-      pdescription: project.projectDescription,
-      clientName: project.clientName,
-      sDate: project.startDate,
-      eDate: project.endDate,
-      totalDuration: project.totalDuration,
+      pdata: project,
       projectId: req.params.projectId,
+      email: client.email,
     });
   } catch (e) {
     console.log(e);

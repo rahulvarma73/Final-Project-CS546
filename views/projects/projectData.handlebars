@@ -23,33 +23,37 @@
 
 <hr>
  {{!-- <---------------------Use this if you can----------------------------------------> --}}
-{{!-- <div class="grid">
+<div class="grid">
   <dl>
     <dt>Project Name: </dt>
-    <dd>{{projectName}}</dd>
+    <dd>{{pdata.projectName}}</dd>
     <br/>
     <dt>Project Description: </dt>
-    <dd>{{projectDescription}}</dd>
+    <dd>{{pdata.projectDescription}}</dd>
     <br/>
     <dt>Client Name: </dt>
-    <dd>{{clientName}}</dd>
+    <dd>{{pdata.clientName}}</dd>
     <br/>
     <dt>Client ID </dt>
-    <dd>{{clientId}}</dd>
+    <dd>{{pdata.clientId}}</dd>
     <br/>
     <dt>Start Date </dt>
-    <dd>{{startDate}}</dd>
+    <dd>{{pdata.startDate}}</dd>
     <br/>
     <dt>End Date </dt>
-    <dd>{{endDate}}</dd>
+    <dd>{{pdata.endDate}}</dd>
     <br/>
     <dt>Total Duration </dt>
-    <dd>{{totalDuration}}</dd>
+    <dd>{{pdata.totalDuration}}</dd>
     <br/>
     <dt>Tasks </dt>
-    <dd>{{tasks}}</dd>
+    <dd>{{pdata.tasks}}</dd>
   </dl> 
-</div> --}}  
+</div>
+
+
+
+{{!-- 
 <dl>
   <dt>Project Name: </dt>
   <dd>{{pname}}</dd>
@@ -68,11 +72,17 @@
   <br>
   <dt> Total Duration: </dt>
   <dd>{{totalDuration}}</dd>
-</dl> 
+</dl>  --}}
 
 
 <hr>
 
+<br>
+<form action="mailto:{{email}}" method="post" enctype="text/plain">
+<p>Click on below button to send email to <strong>"{{pdata.clientName}}":{{email}}</strong></p>
+  <button class="btn btn-primary" type="submit">Send Email</button>
+</form>
+<br>
 
 <button onclick="location.href='/projects/project/{{projectId}}/edit'" >Update</button>
 <br>
