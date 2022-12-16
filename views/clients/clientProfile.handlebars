@@ -1,0 +1,20 @@
+<h1>Client Details</h1>
+<dl>
+  <dt>First Name: </dt>
+  <dd>{{fname}}</dd>
+  <br>
+  <dt>Last Name: </dt>
+  <dd>{{lname}}</dd>
+  <br>
+  <dt>Email: </dt>
+  <dd>{{email}}</dd>
+  <br>
+  <dt>Gender: </dt>
+  <dd>{{gender}}</dd>
+</dl> 
+
+<br>
+
+<button onclick="location.href='/clients/client/{{clientId}}/edit'" >Update</button>
+<br>
+<button class="is-red" onclick="location.href='/clients/delete/{{clientId}}'">Delete Client</button>

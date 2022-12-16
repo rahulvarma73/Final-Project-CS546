@@ -1,0 +1,19 @@
+<h1>All Clients</h1>
+
+<main>
+        <ul>
+            {{#each clients}}
+               <li>
+                   <a href="/clients/client/{{this._id}}"> <h2>{{ this.cfirstName }} {{ this.clastName }} </h2> </a>
+               </li>
+            {{/each}}
+        </ul>
+</main>
+
+{{#if x}}
+
+    <p>Add clients by clicking the add Client button</p>
+
+{{/if}}
+
+<button onclick="location.href='/clients/create'"> Add Client </button>

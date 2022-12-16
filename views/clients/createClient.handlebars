@@ -1,0 +1,35 @@
+
+<h1>Create Client </h1>
+<form id="createClient-form" action="/clients/create" method="POST">
+    
+
+    <label for="clientFirstName">First Name: *</label>
+    <input id="clientFirstName" name="clientFirstName" type="text" value="{{fname}}" required>
+    <br>
+    <label for="clientLastName">Last Name: *</label>
+    <input id="clientLastName" name="clientLastName" type="text" value="{{lname}}" required>
+    <br>
+     <label for="clientGender">Gender: *</label>
+    <select id="clientGender" name="clientGender">
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Others">Others</option>
+    </select>
+    <br>
+    <label for="clientEmail">Email: *</label>
+    <input id="clientEmail" name="clientEmail" type="text" value="{{email}}" required>
+    <br>
+   
+
+    <p>required (*)</p>
+    
+    <br>
+    <button type="submit">Submit</button>  
+</form>
+
+
+
+{{#if error}}
+    <h4>Error: </h4>
+    <p class="is-red"> {{error}} </p>
+{{/if}}
