@@ -181,8 +181,9 @@ router.route("/project/:projectId/edit").get(async (req, res) => {
       let name = clients[i].cfirstName + " " + clients[i].clastName;
       if (name == clientName) {
         temp = clients[i];
-        clients.pop(clients[i]);
+        clients.splice(i, 1);
         clients.unshift(temp);
+        break;
       }
     }
 
@@ -211,16 +212,18 @@ router.route("/project/:projectId/edit").post(async (req, res) => {
     const user = await userData.getUserByEmail(req.session.user);
     const user_Id = user._id;
     req.params.projectId = helpers1.checkInputIsObjectId(req.params.projectId);
+    const project = await projectData.getProjectById(req.params.projectId);
     var projectName = req.body.projectName;
     var projectDescription = req.body.projectDescription;
     var clientName = req.body.clientName;
-    var startDate = req.body.startDate;
-    var endDate = req.body.endDate;
-    var totalDuration = req.body.totalDuration;
+    var startDate = project.startDate;
+    var endDate = project.endDate;
+    var totalDuration = project.totalDuration;
+    var clients = await clientData.getAllClient(user_Id);
     projectName = helpers1.pname(projectName);
     projectDescription = helpers1.checkInputIsString(projectDescription);
     clientName = helpers1.checkInputIsString(clientName);
-    var clients = await clientData.getAllClient(user_Id);
+
     await projectData.updateProject(
       user_Id,
       req.params.projectId,
@@ -230,7 +233,7 @@ router.route("/project/:projectId/edit").post(async (req, res) => {
     );
     return res.redirect("/projects/project/" + req.params.projectId);
   } catch (error) {
-    return res.status(400).render("clients/clientprofileEdit", {
+    return res.status(400).render("projects/updateProject", {
       pname: projectName,
       pdescription: projectDescription,
       clients: clients,
