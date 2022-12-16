@@ -11,19 +11,28 @@ Do not forget to use labels for your inputs! For the labels, you will use the me
 You should have a label for both the username and password inputs referencing their id's in the for attribute of the label.
 
 --}}
+<div class="container"></div>
+<hr>
 <h1>Login Page</h1>
+<br/>
 
-<form id="login-form" action="/login" method="post">
-    <label for="userEmail">Email: </label>
-    <input id="userEmail" name="userEmail" type="text">
-    <br>
-    <label for="passwordInput">Password: </label>
-    <input id="passwordInput" name="passwordInput" type="password">
-    <br>
-    <button type="submit">Login</button>
+<form id="login-form m-2" action="/login" method="post">
+    <div class="form-group">
+        <label for="userEmail">Email: </label>
+        <input id="userEmail" name="userEmail" type="text">
+    </div>
+    <br/>
+    <div class="form-group">
+        <label for="passwordInput">Password: </label>
+        <input id="passwordInput" name="passwordInput" type="password">        
+    </div>
+    <br/>
+    <button class="btn btn-primary" type="submit">Login</button>
 </form>
-
-<button class="is-green" onclick="location.href='/register'">Sign-Up</button>
+<hr>
+<br/>
+<br/>
+<button class="btn btn-success" onclick="location.href='/register'">Create My Account</button>
 
 {{#if error}}
     <h5>Error: </h5>

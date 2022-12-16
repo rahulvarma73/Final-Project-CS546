@@ -1,34 +1,61 @@
-<form id="details-update-form" action="/user/profile/edit" method="post">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark me-0 ms-0 mt-0 mb-3">
+  <a class="ms-3 navbar-brand me-5" href="/">Time Manager</a>
+  <div class="me-5 navbar-dark navbar" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="/">Home </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="clients/{{userId}}">User Clients</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/user/profile">My Details</a>
+      </li>
+    </ul>
+  </div>
+  <button class="ms-5 btn btn-warning" onclick="location.href='/logout'" type="button">Logout</button>
+</nav>
+
+<hr>
+
+
+<form class="form-group" id="details-update-form" action="/user/profile/edit" method="post">
     <p><strong>Email:</strong> {{email}}</p>
 
-    <label for="userFirstName">First Name: *</label>
-    <input id="userFirstName" name="userFirstName" type="text" value="{{fname}}" required>
-    <br>
-    <label for="userLastName">Last Name: *</label>
-    <input id="userLastName" name="userLastName" type="text" value="{{lname}}" required>
-    <br>
-    <label for="userGender">Gender: *</label>
-    <select id="userGender" name="userGender">
+    <label class="form-label" for="userFirstName">First Name: *</label>
+    <input class="form-control" id="userFirstName" name="userFirstName" type="text" value="{{fname}}" required>
+    <br/>
+    <label class="form-label" for="userLastName">Last Name: *</label>
+    <input class="form-control" id="userLastName" name="userLastName" type="text" value="{{lname}}" required>
+    <br/>
+    <label class="form-label" for="userGender">Gender: *</label>
+    <select class="form-control" id="userGender" name="userGender">
         <option value="Male">Male</option>
         <option value="Female">Female</option>
         <option value="Others">Others</option>
     </select>
-    <br>
-    <label for="passwordInput">New Password: </label>
-    <input id="passwordInput" name="passwordInput" type="password">
-    <br>
+    <br/>
+    <label class="form-label" for="passwordInput">New Password: </label>
+    <input class="form-control" id="passwordInput" name="passwordInput" type="password">
+    <br/>
 
     <p>required (*)</p>
-    
-    <br>
-    <button type="submit">Update</button>
-    <br>
-    <button type="reset">Reset</button>
-</form>
 
-<button onclick="location.href='/user/profile'">Cancel</button>
+
+    <div class="ms-1 row">
+        <button class="col-md-1 col-lg-1 col-sm-2 me-3 btn btn-primary" type="submit">Update</button>
+        <br/>
+        <button class="col-md-1 col-lg-1 col-sm-2 me-3 btn btn-warning" type="reset">Reset</button>
+        <br/>
+        <button class="col-md-1 col-lg-1 col-sm-2 btn btn-info" onclick="location.href='/user/profile'">Cancel</button>
+    </div>
+</form>
+<br/>
+
 
 {{#if error}}
     <h4>Error: </h4>
     <p class="is-red"> {{error}} </p>
 {{/if}}
+
+<hr>

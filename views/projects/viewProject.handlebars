@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark me-0 ms-0 mt-0 mb-3">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark me-0 ms-0 mt-0 mb-3">
   <a class="ms-3 navbar-brand me-5" href="/">Time Manager</a>
   <div class="me-5 navbar-dark navbar" id="navbarNav">
     <ul class="navbar-nav">
@@ -16,19 +16,34 @@
   <button class="ms-5 btn btn-warning" onclick="location.href='/logout'" type="button">Logout</button>
 </nav>
 
+    projectName: projectName,
+    projectDescription: projectDescription,
+    clientName: clientName,
+    clientId: clientId,
+    startDate: startDate,
+    endDate: endDate,
+    totalDuration: totalDuration,
+    tasks: tasks,
+
 <hr>
 <div class="grid">
   <dl>
-    <dt>First Name: </dt>
+    <dt>Project Name: </dt>
     <dd>{{fname}}</dd>
     <br/>
-    <dt>Last Name: </dt>
+    <dt>Project Description: </dt>
     <dd>{{lname}}</dd>
     <br/>
-    <dt>Email: </dt>
+    <dt>Client Name: </dt>
     <dd>{{email}}</dd>
     <br/>
-    <dt>Gender: </dt>
+    <dt>Client ID </dt>
+    <dd>{{gender}}</dd>
+    <br/>
+    <dt>Start Date </dt>
+    <dd>{{gender}}</dd>
+    <br/>
+    <dt>Start Date </dt>
     <dd>{{gender}}</dd>
   </dl> 
 </div>
@@ -38,5 +53,4 @@
 
 <button class="btn btn-primary" onclick="location.href='/user/profile/edit'" >Update</button>
 <br/>
-<br/>
-<button class="btn btn-danger" onclick="location.href='/user/delete'">Delete Account</button>
+    

@@ -1,3 +1,27 @@
+{{!-- >>>>>>>>>> Add this HTML element in all your pages, look at user handlebars for references of classes for buttons or other components
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark me-0 ms-0 mt-0 mb-3">
+  <a class="ms-3 navbar-brand me-5" href="/">Time Manager</a>
+  <div class="me-5 navbar-dark navbar" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="/">Home </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="clients/{{userId}}">User Clients</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/user/profile">My Details</a>
+      </li>
+    </ul>
+  </div>
+  <button class="ms-5 btn btn-warning" onclick="location.href='/logout'" type="button">Logout</button>
+</nav>
+
+<hr>
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Html element end!! --}}
+
 <h1>All Clients</h1>
 
 <main>
@@ -16,4 +40,4 @@
 
 {{/if}}
 
-<button onclick="location.href='/clients/create'"> Add Client </button>
+<button class="btn btn-primary" onclick="location.href='/clients/create'"> Add Client </button>

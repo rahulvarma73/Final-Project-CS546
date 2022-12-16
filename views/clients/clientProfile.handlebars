@@ -2,19 +2,19 @@
 <dl>
   <dt>First Name: </dt>
   <dd>{{fname}}</dd>
-  <br>
+  <br/>
   <dt>Last Name: </dt>
   <dd>{{lname}}</dd>
-  <br>
+  <br/>
   <dt>Email: </dt>
   <dd>{{email}}</dd>
-  <br>
+  <br/>
   <dt>Gender: </dt>
   <dd>{{gender}}</dd>
 </dl> 
 
-<br>
+<br/>
 
-<button onclick="location.href='/clients/client/{{clientId}}/edit'" >Update</button>
-<br>
-<button class="is-red" onclick="location.href='/clients/delete/{{clientId}}'">Delete Client</button>
+<button class="btn btn-info" onclick="location.href='/clients/client/{{clientId}}/edit'" >Update</button>
+<br/>
+<button class="btn btn-danger" onclick="location.href='/clients/delete/{{clientId}}'">Delete Client</button>
