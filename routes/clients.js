@@ -21,7 +21,12 @@ router
         title: "Create Client",
         userId: user_Id,
       });
-    } catch (e) {}
+    } catch (e) {
+      return res.status(500).render("error", {
+        message: "internal Server error",
+        title: "Error",
+      });
+    }
   })
   .post(async (req, res) => {
     try {
@@ -81,7 +86,12 @@ router.route("/delete/:clientId").get(async (req, res) => {
       clientId: req.params.clientId,
       userId: userId,
     });
-  } catch (e) {}
+  } catch (e) {
+    return res.status(404).render("error", {
+      message: "Page not found",
+      title: "Error",
+    });
+  }
 });
 router.route("/delete/:clientId").post(async (req, res) => {
   try {
@@ -102,7 +112,10 @@ router.route("/delete/:clientId").post(async (req, res) => {
     // redirect to  AllClients page
     return res.redirect("/clients/" + userId);
   } catch (e) {
-    // redirect to error page
+    return res.status(404).render("error", {
+      message: "Page not found",
+      title: "Error",
+    });
   }
 });
 
@@ -132,8 +145,10 @@ router.route("/:userId").get(async (req, res) => {
       userId: userId,
     });
   } catch (e) {
-    let x = 1;
-    // redirect to error page
+    return res.status(404).render("error", {
+      message: "Page not found",
+      title: "Error",
+    });
   }
 });
 
@@ -163,7 +178,10 @@ router.route("/client/:clientId").get(async (req, res) => {
       userId: user_Id,
     });
   } catch (e) {
-    console.log(e);
+    return res.status(404).render("error", {
+      message: "Page not found",
+      title: "Error",
+    });
   }
 });
 
@@ -187,10 +205,10 @@ router.route("/client/:clientId/edit").get(async (req, res) => {
       userId: userId,
     });
   } catch (error) {
-    console.error(error);
-    return res
-      .status(500)
-      .render("error", { message: error.message || error, title: "Error" });
+    return res.status(404).render("error", {
+      message: "Page not found",
+      title: "Error",
+    });
   }
 });
 router.route("/client/:clientId/edit").post(async (req, res) => {

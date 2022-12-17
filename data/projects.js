@@ -16,8 +16,16 @@ const createProject = async (
   projectName = helpers1.pname(projectName);
   projectDescription = helpers1.checkInputIsString(projectDescription);
 
-  //   write a function thats gets  clientId from users dataBase
+  // check whether two projects have same name
+  let allProjects = await getAllProjects(userId);
+  for (let i = 0; i < allProjects.length; i++) {
+    let projectNameDb = allProjects[i].projectName;
+    if (projectNameDb == projectName) {
+      throw "No Two Projects can have same Project Name";
+    }
+  }
 
+  //   write a function thats gets  clientId from users dataBase
   const usersCollection = await users();
   // check whether user is present
   let userDetails = await userFunctions.getUserByID(userId);
@@ -111,6 +119,17 @@ const updateProject = async (
   });
 
   if (project == null) throw "No project with that id";
+
+  let allProjects = await getAllProjects(userId);
+  for (let i = 0; i < allProjects.length; i++) {
+    let projectIdString = allProjects[i]._id.toString();
+    if (projectIdString != projectId) {
+      let projectNameDb = allProjects[i].projectName;
+      if (projectNameDb == projectName) {
+        throw "No Two Projects can have same Project Name";
+      }
+    }
+  }
 
   if (
     project.projectName == projectName &&

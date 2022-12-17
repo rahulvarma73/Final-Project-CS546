@@ -27,7 +27,12 @@ router
         x: x,
         userId: userId,
       });
-    } catch (e) {}
+    } catch (e) {
+      return res.status(500).render("error", {
+        message: "internal Server error",
+        title: "Error",
+      });
+    }
   })
   .post(async (req, res) => {
     try {
@@ -89,7 +94,10 @@ router.route("/:userId").get(async (req, res) => {
       userId: req.params.userId,
     });
   } catch (e) {
-    // redirect to error page
+    return res.status(404).render("error", {
+      message: "Page not found",
+      title: "Error",
+    });
   }
 });
 
@@ -120,7 +128,10 @@ router.route("/project/:projectId").get(async (req, res) => {
       userId: userId,
     });
   } catch (e) {
-    console.log(e);
+    return res.status(404).render("error", {
+      message: "Page not found",
+      title: "Error",
+    });
   }
 });
 
@@ -144,7 +155,12 @@ router.route("/delete/:projectId").get(async (req, res) => {
       projectId: req.params.projectId,
       userId: userId,
     });
-  } catch (e) {}
+  } catch (e) {
+    return res.status(404).render("error", {
+      message: "Page not found",
+      title: "Error",
+    });
+  }
 });
 router.route("/delete/:projectId").post(async (req, res) => {
   try {
@@ -166,7 +182,10 @@ router.route("/delete/:projectId").post(async (req, res) => {
     // redirect to  AllClients page
     return res.redirect("/projects/" + userId);
   } catch (e) {
-    // redirect to error page
+    return res.status(404).render("error", {
+      message: "Page not found",
+      title: "Error",
+    });
   }
 });
 
@@ -207,10 +226,10 @@ router.route("/project/:projectId/edit").get(async (req, res) => {
       projectId: req.params.projectId,
     });
   } catch (error) {
-    console.error(error);
-    return res
-      .status(500)
-      .render("error", { message: error.message || error, title: "Error" });
+    return res.status(404).render("error", {
+      message: "Page not found",
+      title: "Error",
+    });
   }
 });
 router.route("/project/:projectId/edit").post(async (req, res) => {
@@ -250,6 +269,7 @@ router.route("/project/:projectId/edit").post(async (req, res) => {
       eDate: endDate,
       totalDuration: totalDuration,
       error: error,
+      projectId: req.params.projectId,
     });
   }
 });
