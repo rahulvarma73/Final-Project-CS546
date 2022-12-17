@@ -6,6 +6,7 @@ const data = require("../data");
 const { userData } = require("../data");
 const { checkUser } = require("../data/users");
 const { getAllProjects } = require("../data/projects");
+const { getAllProjectsBasedOnSearch } = require("../data/projects");
 const dataUsers = data.userData;
 
 router.route("/").get(async (req, res) => {
@@ -69,7 +70,7 @@ router.route("/login").post(async (req, res) => {
       req.session.user = req.body.userEmail.toLowerCase().trim();
       const user = await userData.getUserByEmail(req.session.user);
       req.session.userId = user._id;
-      console.log(user._id, req.session.userId)
+      console.log(user._id, req.session.userId);
       return res.redirect("/home");
     }
   } catch (error) {
@@ -89,19 +90,59 @@ router.route("/home").get(async (req, res) => {
   if (req.session.user) {
     let user = await userData.getUserByEmail(req.session.user);
     let pdata = false;
-    try{
+    try {
       pdata = await getAllProjects(user._id);
-      if(pdata.length === 0) {pdata = false};
-    }catch(error){
+      if (pdata.length === 0) {
+        pdata = false;
+      }
+    } catch (error) {
       console.log(error.message || error);
     }
-    
+
     return res.render("home", {
       title: "Home",
       user: req.session.user,
       date: new Date().toUTCString(),
       userId: user._id,
       pdata: pdata,
+    });
+  }
+
+  return res
+    .status(400)
+    .render("error", { message: "User not logged in!", title: "Error" });
+});
+router.route("/home").post(async (req, res) => {
+  //code here for GET
+  if (req.session.user) {
+    let user = await userData.getUserByEmail(req.session.user);
+    let pdata = false;
+    try {
+      if (!req.body.searchInput) {
+        pdata = await getAllProjects(user._id);
+        if (pdata.length === 0) {
+          pdata = false;
+        }
+      } else {
+        pdata = await getAllProjectsBasedOnSearch(
+          user._id,
+          req.body.searchInput
+        );
+        if (pdata.length === 0) {
+          pdata = false;
+        }
+      }
+    } catch (error) {
+      console.log(error.message || error);
+    }
+
+    return res.render("home", {
+      title: "Home",
+      user: req.session.user,
+      date: new Date().toUTCString(),
+      userId: user._id,
+      pdata: pdata,
+      searchInput: req.body.searchInput,
     });
   }
 
@@ -121,7 +162,7 @@ router.route("/user/profile").get(async (req, res) => {
       lname: user.userLastName,
       email: user.email,
       gender: user.gender,
-      userId: req.session.userId
+      userId: req.session.userId,
     });
   } catch (error) {
     console.error(error);
@@ -143,7 +184,7 @@ router
         fname: user.userFirstName.toString(),
         lname: user.userLastName.toString(),
         email: user.email,
-        userId: req.session.userId
+        userId: req.session.userId,
       });
     } catch (error) {
       console.error(error);
@@ -176,7 +217,7 @@ router
           lname: user.userLastName.toString(),
           email: user.email,
           error: error.substring(3),
-          userId: req.session.userId
+          userId: req.session.userId,
         });
       }
       return res.render("error", { message: error, title: "Error" });
@@ -191,7 +232,7 @@ router
     return res.render("users/userDelete", {
       title: "Account Deletion",
       email: req.session.user,
-      userId: req.session.userId
+      userId: req.session.userId,
     });
   })
   .post(async (req, res) => {
@@ -220,7 +261,7 @@ router
           title: "Account Deletion",
           email: req.session.user,
           error: error.substring(3),
-          userId: req.session.userId
+          userId: req.session.userId,
         });
       }
       return res.render("error", { message: error, title: "Error" });

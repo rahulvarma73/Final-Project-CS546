@@ -211,6 +211,38 @@ const getAllProjects = async (userId) => {
   return allProjects;
 };
 
+// search feature
+const getAllProjectsBasedOnSearch = async (userId, searchInput) => {
+  userId = helpers1.checkInputIsObjectId(userId);
+  searchInput = helpers1.checkInputIsString(searchInput);
+  searchInput = searchInput.toLowerCase();
+  let user = await userFunctions.getUserByID(userId);
+  let allClients = await clientFunctions.getAllClient(user._id);
+  let allProjectIds = [];
+  for (let i = 0; i < allClients.length; i++) {
+    for (let j = 0; j < allClients[i].projectIds.length; j++) {
+      allProjectIds.push(allClients[i].projectIds[j]);
+    }
+  }
+  let allProjects = [];
+  for (let i = 0; i < allProjectIds.length; i++) {
+    let project = await getProjectById(allProjectIds[i]);
+    allProjects.push(project);
+  }
+  let projectsBasedOnSearch = [];
+  for (let i = 0; i < allProjects.length; i++) {
+    let clientName = allProjects[i].clientName;
+    let projectName = allProjects[i].projectName;
+    let cTrue = clientName.includes(searchInput);
+    let pTrue = projectName.includes(searchInput);
+
+    if (cTrue || pTrue) {
+      projectsBasedOnSearch.push(allProjects[i]);
+    }
+  }
+  return projectsBasedOnSearch;
+};
+
 // get All projects by client name (need client information)
 // should look at it
 const getAllProjectsOfClient = async (userId, clientName) => {
@@ -276,4 +308,5 @@ module.exports = {
   getAllProjectsOfClient: getAllProjectsOfClient,
   getProjectByName: getProjectByName,
   getAllProjects: getAllProjects,
+  getAllProjectsBasedOnSearch: getAllProjectsBasedOnSearch,
 };
