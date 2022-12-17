@@ -16,9 +16,10 @@ router
 
       let email = helpers1.validuseremail(req.session.user);
       const user = await userData.getUserByEmail(email);
-      const user_Id = user._id;
+      var user_Id = user._id;
       return res.render("clients/createClient", {
         title: "Create Client",
+        userId: user_Id,
       });
     } catch (e) {}
   })
@@ -38,7 +39,7 @@ router
       clientLastName = helpers1.name(clientLastName);
       clientEmail = helpers1.validuseremail(clientEmail);
       var user = await userData.getUserByEmail(req.session.user);
-      let userId = user._id;
+      var userId = user._id;
       await clientData.createClient(
         userId,
         clientFirstName,
@@ -54,6 +55,7 @@ router
         lname: clientLastName,
         email: clientEmail,
         error: error,
+        userId: userId,
       });
     }
   });
@@ -67,6 +69,7 @@ router.route("/delete/:clientId").get(async (req, res) => {
     //   router validation
     req.params.clientId = validation.checkInputIsObjectId(req.params.clientId);
     const user = await userData.getUserByEmail(req.session.user);
+    var userId = user._id;
     const getClient = await clientData.getClientById(
       user._id,
       req.params.clientId
@@ -76,6 +79,7 @@ router.route("/delete/:clientId").get(async (req, res) => {
       fname: getClient.cfirstName,
       lname: getClient.clastName,
       clientId: req.params.clientId,
+      userId: userId,
     });
   } catch (e) {}
 });
@@ -88,7 +92,7 @@ router.route("/delete/:clientId").post(async (req, res) => {
     //   router validation
     req.params.clientId = validation.checkInputIsObjectId(req.params.clientId);
     const user = await userData.getUserByEmail(req.session.user);
-    let userId = user._id;
+    var userId = user._id;
 
     const allClients = await clientData.removeClient(
       userId,
@@ -114,6 +118,7 @@ router.route("/:userId").get(async (req, res) => {
     req.params.userId = validation.checkInputIsObjectId(req.params.userId);
 
     const allClients = await clientData.getAllClient(req.params.userId);
+    var userId = req.params.userId;
     // checking whether there are clients or not
     let x = false;
     if (!allClients.length) {
@@ -124,8 +129,10 @@ router.route("/:userId").get(async (req, res) => {
       title: "All Clients",
       clients: allClients,
       x: x,
+      userId: userId,
     });
   } catch (e) {
+    let x = 1;
     // redirect to error page
   }
 });
@@ -140,7 +147,7 @@ router.route("/client/:clientId").get(async (req, res) => {
     req.params.clientId = validation.checkInputIsObjectId(req.params.clientId);
     // get userId by email
     const user = await userData.getUserByEmail(req.session.user);
-    const user_Id = user._id;
+    var user_Id = user._id;
     const getClient = await clientData.getClientById(
       user_Id,
       req.params.clientId
@@ -153,6 +160,7 @@ router.route("/client/:clientId").get(async (req, res) => {
       email: getClient.email,
       gender: getClient.gender,
       clientId: req.params.clientId,
+      userId: user_Id,
     });
   } catch (e) {
     console.log(e);
@@ -165,10 +173,10 @@ router.route("/client/:clientId/edit").get(async (req, res) => {
     if (!req.session.user)
       return res.render("users/userLogin", { title: "Login" });
     const user = await userData.getUserByEmail(req.session.user);
-    const user_Id = user._id;
+    var userId = user._id;
     // validation
     req.params.clientId = validation.checkInputIsObjectId(req.params.clientId);
-    const client = await clientData.getClientById(user_Id, req.params.clientId);
+    const client = await clientData.getClientById(userId, req.params.clientId);
 
     return res.render("clients/clientprofileEdit", {
       title: "client Details",
@@ -176,6 +184,7 @@ router.route("/client/:clientId/edit").get(async (req, res) => {
       lname: client.clastName.toString(),
       email: client.email,
       clientId: req.params.clientId,
+      userId: userId,
     });
   } catch (error) {
     console.error(error);
@@ -198,6 +207,7 @@ router.route("/client/:clientId/edit").post(async (req, res) => {
     clientLastName = helpers1.name(clientLastName);
     clientFirstName = helpers1.name(clientFirstName);
     var user = await userData.getUserByEmail(req.session.user);
+    var userId = user._id;
 
     await clientData.updateClient(
       user._id,
@@ -216,6 +226,7 @@ router.route("/client/:clientId/edit").post(async (req, res) => {
       email: clientEmail,
       error: error,
       clientId: req.params.clientId,
+      userId: userId,
     });
   }
 });

@@ -15,8 +15,8 @@ router
         return res.render("users/userLogin", { title: "Login" });
       let email = helpers1.validuseremail(req.session.user);
       const user = await userData.getUserByEmail(email);
-      const user_Id = user._id;
-      const allClients = await clientData.getAllClient(user_Id);
+      var userId = user._id;
+      const allClients = await clientData.getAllClient(userId);
       let x = false;
       if (!allClients.length) {
         x = true;
@@ -25,7 +25,7 @@ router
         title: "Create Project",
         clients: allClients,
         x: x,
-        userId: user_Id,
+        userId: userId,
       });
     } catch (e) {}
   })
@@ -71,6 +71,7 @@ router.route("/:userId").get(async (req, res) => {
     if (!req.session.user) {
       return res.render("users/userLogin", { title: "Login" });
     }
+
     //   router validation
     validation.checkInputIsObjectId(req.params.userId);
 
@@ -85,6 +86,7 @@ router.route("/:userId").get(async (req, res) => {
       title: "All projects",
       projects: allProjects,
       x: x,
+      userId: req.params.userId,
     });
   } catch (e) {
     // redirect to error page
@@ -97,6 +99,8 @@ router.route("/project/:projectId").get(async (req, res) => {
     if (!req.session.user) {
       return res.render("users/userLogin", { title: "Login" });
     }
+    let user = await userData.getUserByEmail(req.session.user);
+    var userId = user._id;
     //   router validation
     req.params.projectId = validation.checkInputIsObjectId(
       req.params.projectId
@@ -113,6 +117,7 @@ router.route("/project/:projectId").get(async (req, res) => {
       eDate: project.endDate,
       totalDuration: project.totalDuration,
       projectId: req.params.projectId,
+      userId: userId,
     });
   } catch (e) {
     console.log(e);
@@ -124,6 +129,8 @@ router.route("/delete/:projectId").get(async (req, res) => {
     if (!req.session.user) {
       return res.render("users/userLogin", { title: "Login" });
     }
+    let user = await userData.getUserByEmail(req.session.user);
+    var userId = user._id;
     //   router validation
     req.params.projectId = validation.checkInputIsObjectId(
       req.params.projectId
@@ -135,6 +142,7 @@ router.route("/delete/:projectId").get(async (req, res) => {
       title: "Delete Project",
       pname: project.projectName,
       projectId: req.params.projectId,
+      userId: userId,
     });
   } catch (e) {}
 });
@@ -163,6 +171,7 @@ router.route("/delete/:projectId").post(async (req, res) => {
 });
 
 // edit project details
+// edit project details
 router.route("/project/:projectId/edit").get(async (req, res) => {
   try {
     if (!req.session.user)
@@ -186,7 +195,7 @@ router.route("/project/:projectId/edit").get(async (req, res) => {
         break;
       }
     }
-
+    // no two projects will have same name
     return res.render("projects/updateProject", {
       title: "project Details",
       pname: project.projectName,
@@ -237,9 +246,10 @@ router.route("/project/:projectId/edit").post(async (req, res) => {
       pname: projectName,
       pdescription: projectDescription,
       clients: clients,
-      startDate: startDate,
-      endDate: endDate,
+      sDate: startDate,
+      eDate: endDate,
       totalDuration: totalDuration,
+      error: error,
     });
   }
 });
