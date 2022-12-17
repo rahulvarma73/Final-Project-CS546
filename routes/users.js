@@ -67,6 +67,9 @@ router.route("/login").post(async (req, res) => {
     );
     if (result.authenticatedUser) {
       req.session.user = req.body.userEmail.toLowerCase().trim();
+      const user = await userData.getUserByEmail(req.session.user);
+      req.session.userId = user._id;
+      console.log(user._id, req.session.userId)
       return res.redirect("/home");
     }
   } catch (error) {
@@ -118,6 +121,7 @@ router.route("/user/profile").get(async (req, res) => {
       lname: user.userLastName,
       email: user.email,
       gender: user.gender,
+      userId: req.session.userId
     });
   } catch (error) {
     console.error(error);
@@ -139,6 +143,7 @@ router
         fname: user.userFirstName.toString(),
         lname: user.userLastName.toString(),
         email: user.email,
+        userId: req.session.userId
       });
     } catch (error) {
       console.error(error);
@@ -171,6 +176,7 @@ router
           lname: user.userLastName.toString(),
           email: user.email,
           error: error.substring(3),
+          userId: req.session.userId
         });
       }
       return res.render("error", { message: error, title: "Error" });
@@ -185,6 +191,7 @@ router
     return res.render("users/userDelete", {
       title: "Account Deletion",
       email: req.session.user,
+      userId: req.session.userId
     });
   })
   .post(async (req, res) => {
@@ -213,6 +220,7 @@ router
           title: "Account Deletion",
           email: req.session.user,
           error: error.substring(3),
+          userId: req.session.userId
         });
       }
       return res.render("error", { message: error, title: "Error" });
