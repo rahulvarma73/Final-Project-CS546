@@ -224,6 +224,7 @@ router.route("/project/:projectId/edit").get(async (req, res) => {
       eDate: project.endDate,
       totalDuration: project.totalDuration,
       projectId: req.params.projectId,
+      userId: user_Id,
     });
   } catch (error) {
     return res.status(404).render("error", {
@@ -270,6 +271,7 @@ router.route("/project/:projectId/edit").post(async (req, res) => {
       totalDuration: totalDuration,
       error: error,
       projectId: req.params.projectId,
+      userId: user_Id,
     });
   }
 });
