@@ -43,7 +43,7 @@ const createProject = async (
 
   //   gets updated when user finishes tasks
 
-  let totalDuration = "0";
+  let totalDuration = "0 minutes";
 
   let tasks = [];
 
@@ -319,6 +319,26 @@ const getClientIdByName = async (userId, clientName) => {
     }
   }
 };
+
+const setEndDate = async (projectId) => {
+  projectId = helpers1.checkInputIsObjectId(projectId);
+  let endDate = helpers1.getDate();
+
+  const projectsCollection = await projects();
+
+  const project = await projectsCollection.findOne({
+    _id: ObjectId(projectId),
+  });
+
+  if (project == null) throw "No project with that id";
+
+  const updatedInfo = await projectsCollection.updateOne(
+    { _id: ObjectId(projectId) },
+    {
+      $set: { endDate: endDate },
+    }
+  );
+};
 module.exports = {
   createProject: createProject,
   getProjectById: getProjectById,
@@ -328,4 +348,5 @@ module.exports = {
   getProjectByName: getProjectByName,
   getAllProjects: getAllProjects,
   getAllProjectsBasedOnSearch: getAllProjectsBasedOnSearch,
+  setEndDate: setEndDate,
 };

@@ -9,39 +9,48 @@ const exphbs = require("express-handlebars");
 
 const Handlebars = require("handlebars");
 
-const session = require('express-session')
+const session = require("express-session");
 
-app.use(session({
-name: 'AuthCookie',
-secret: 'some secret string!',
-resave: false,
-saveUninitialized: true
-}))
+app.use(
+  session({
+    name: "AuthCookie",
+    secret: "some secret string!",
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 
 // // 4. One which will deny all users access to the /admin path.
 // app.use("/admin", function(request, response, next) {
 //     // If we had a user system, we could check to see if we could access /admin
-  
+
 //     console.log(
 //       "Someone is trying to get access to /admin! We're stopping them!"
 //     );
 //     response.status(403).send("You cannot access /admin");
 //   });
 
-app.use("/home",(req,res,next) => {
-    if(req.method === "GET" && !req.session.user){
-        return res.status(403).render('error',{message: "user is not logged in", title: "Error"});
-    }
-    next();
-})
+app.use("/home", (req, res, next) => {
+  if (req.method === "GET" && !req.session.user) {
+    return res
+      .status(403)
+      .render("error", { message: "user is not logged in", title: "Error" });
+  }
+  next();
+});
 
-app.use((req,res,next) => {
-    let auth = "";
-    if(!req.session.user) {auth = "Non-"}
-    console.log(`[${new Date().toUTCString()}]: ${req.method} ${req.originalUrl} (${auth}Authenticated User)`);
-    next();
-})
-
+app.use((req, res, next) => {
+  let auth = "";
+  if (!req.session.user) {
+    auth = "Non-";
+  }
+  console.log(
+    `[${new Date().toUTCString()}]: ${req.method} ${
+      req.originalUrl
+    } (${auth}Authenticated User)`
+  );
+  next();
+});
 
 const handlebarsInstance = exphbs.create({
   defaultLayout: "main",
@@ -52,8 +61,8 @@ const handlebarsInstance = exphbs.create({
         return new Handlebars.SafeString(JSON.stringify(obj, null, spacing));
 
       return new Handlebars.SafeString(JSON.stringify(obj));
-    }
-  }
+    },
+  },
 });
 
 const rewriteUnsupportedBrowserMethods = (req, res, next) => {
@@ -84,15 +93,13 @@ app.listen(3000, () => {
   console.log("Your routes will be running on http://localhost:3000");
 });
 
-
-
 //testing
 // try {
 //   const userData = require('./data/users')
 
 //   userData.createUser("User","One","User1@gmail.com","Male","Hello1!")
-    
+
 // } catch (error) {
 //   console.error(error);
-    
+
 // }

@@ -119,3 +119,14 @@ body {
   .form-control {
     max-width: 9cm;
   }
+
+   #stats {
+    background-color: #05a849;
+    color: white;
+    padding: 14px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+  }
+  
+  

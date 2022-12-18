@@ -10,7 +10,7 @@ function pname(name) {
       (name.charCodeAt(i) >= 65 && name.charCodeAt(i) <= 90) ||
       (name.charCodeAt(i) >= 97 && name.charCodeAt(i) <= 122) ||
       (name.charCodeAt(i) >= 48 && name.charCodeAt(i) <= 57) ||
-      name.charCodeAt(i) >= 32
+      name.charCodeAt(i) == 32
     ) {
     } else {
       throw "Error: only characters are allowed(A-Z and a-z and 0 - 9)";
@@ -27,7 +27,8 @@ function name(name) {
   for (let i = 0; i < name.length; i++) {
     if (
       (name.charCodeAt(i) >= 65 && name.charCodeAt(i) <= 90) ||
-      (name.charCodeAt(i) >= 97 && name.charCodeAt(i) <= 122)
+      (name.charCodeAt(i) >= 97 && name.charCodeAt(i) <= 122) ||
+      name.charCodeAt(i) == 32
     ) {
     } else {
       throw "Error: only characters are allowed(A-Z and a-z)";

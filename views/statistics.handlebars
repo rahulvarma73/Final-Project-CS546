@@ -1,3 +1,8 @@
+{{#if x}}
+<p>No Projects are created. Create projects to view the statistics page</p>
+   <a class="nav-link" href="/">Home </a>
+
+{{else}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
 
@@ -54,3 +59,4 @@ new Chart("myChart", {
     <p>Min time taken on: {{minProject}}</p>
     </div>
 </main>
+{{/if}}
