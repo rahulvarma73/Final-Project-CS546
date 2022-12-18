@@ -15,20 +15,29 @@
   </div>
 </nav>
 
-<h1>Client Details</h1>
+<h1>Task Details</h1>
 <dl>
-  <dt>First Name: </dt>
-  <dd>{{fname}}</dd> 
-  <dt>Last Name: </dt>
-  <dd>{{lname}}</dd>
-  <dt>Email: </dt>
-  <dd>{{email}}</dd>
-  <dt>Gender: </dt>
-  <dd>{{gender}}</dd>
-</dl> 
+  <dt>Task Name: </dt>
+  <dd>{{taskName}}</dd>
+  <br />
+  <dt>Task Description: </dt>
+  <dd>{{description}}</dd>
+  <br />
+  <dt>Duration: </dt>
+  <dd>{{duration}}</dd>
+  <br />
+  <dt>Status: </dt>
+  <dd>{{status}}</dd>
+</dl>
 
-<br>
+<br />
 
-<button class="btn btn-info" onclick="location.href='/clients/client/{{clientId}}/edit'" >Update</button>
+{{! below part is remaining  ask antih before doing... delete button is remaining}}
+<button
+  onclick="location.href='/tasks/project/{{taskId}}/update'"
+>Update Task</button>
 
-<button class="btn btn-danger" onclick="location.href='/clients/delete/{{clientId}}'">Delete Client</button>
+<button
+  class="is-red"
+  onclick="location.href='/clients/delete/{{clientId}}'"
+>Delete Task</button>

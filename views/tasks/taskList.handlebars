@@ -15,20 +15,28 @@
   </div>
 </nav>
 
-<h1>Client Details</h1>
-<dl>
-  <dt>First Name: </dt>
-  <dd>{{fname}}</dd> 
-  <dt>Last Name: </dt>
-  <dd>{{lname}}</dd>
-  <dt>Email: </dt>
-  <dd>{{email}}</dd>
-  <dt>Gender: </dt>
-  <dd>{{gender}}</dd>
-</dl> 
+<h1>All task</h1>
 
-<br>
+<main>
+  <ul>
+    {{#each allTask}}
+      <li>
+        <a href="/tasks/project/{{this._id}}">
+          {{!-- <h2>{{this._id}}</h2> --}}
+          <p>{{this.taskName}}</p> 
+        </a>
+      </li>
+    {{/each}}
+  </ul>
+</main>
 
-<button class="btn btn-info" onclick="location.href='/clients/client/{{clientId}}/edit'" >Update</button>
+{{#if x}}
 
-<button class="btn btn-danger" onclick="location.href='/clients/delete/{{clientId}}'">Delete Client</button>
+  <p>Add tasks by clicking the Add Task button</p>
+
+{{/if}}
+
+{{! have to execute in future }}
+<button class="btn btn-primary" onclick="location.href='/tasks/create/{{projectId}}'">
+  Add task
+</button>

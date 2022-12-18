@@ -1,0 +1,51 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark me-0 ms-0 mt-0 mb-3">
+  <a class="ms-3 navbar-brand me-5" href="/">Time Manager</a>
+  <div class="me-5 navbar-dark navbar" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="/">Home </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/clients/{{userId}}">User Clients</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/user/profile">My Details</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<h1>Create task </h1>
+<form
+  id="createTask-form" {{!--changes made to the id from createClient-form--}} 
+  action="   /tasks/create/{{projectId}}"
+  method="POST"
+>
+
+  <label for="taskName">Task name: *</label>
+  <input
+    id="taskName"
+    name="taskName"
+    type="text"
+    value="{{taskName}}"
+    required
+  />
+  <br />
+  <label for="description">Description: *</label>
+  <input
+    id="description"
+    name="description"
+    type="text"
+    value="{{description}}"
+    required
+  />
+
+  <button type="submit">Add Task</button>
+</form>
+
+{{#if error}}
+  <h4>Error: </h4>
+  <p class="is-red"> {{error}} </p>
+{{/if}}
+
+

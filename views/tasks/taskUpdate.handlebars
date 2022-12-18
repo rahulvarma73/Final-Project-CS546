@@ -1,0 +1,37 @@
+<h1>Update Task </h1>
+<form
+  id="updateTask-form"{{!--Changed from createClient-form--}}
+  action="/tasks/project/{{taskId}}/update"
+  method="POST">
+
+  <h1>{{taskName}}:</h1>{{!--Changed from taskId to taskName in handlebars--}}
+  <label for="taskName">Task Name: *</label>
+  <input
+    id="taskName"
+    name="taskName"
+    type="text"
+    value="{{taskName}}"
+    required
+  />
+
+  <br />
+  <label for="description">Description: *</label>
+  <input
+    id="description"
+    name="description"
+    type="text"
+    value="{{description}}"
+    required
+  />
+  <p>required (*)</p>
+
+  <button type="submit">Update Task</button>
+</form>
+
+<button class="btn btn-info" onclick="|should go to task details page|">Cancel</button>
+
+{{#if error}}
+  <h4>Error: </h4>
+  <p class="is-red"> {{error}} </p>
+{{/if}}
+

@@ -15,20 +15,27 @@
   </div>
 </nav>
 
-<h1>Client Details</h1>
-<dl>
-  <dt>First Name: </dt>
-  <dd>{{fname}}</dd> 
-  <dt>Last Name: </dt>
-  <dd>{{lname}}</dd>
-  <dt>Email: </dt>
-  <dd>{{email}}</dd>
-  <dt>Gender: </dt>
-  <dd>{{gender}}</dd>
-</dl> 
+<h1>Task Comment for {{taskName}}:</h1>
+<form
+  id="taskComment-form" 
+  action="{{!--   /tasks/create/{{projectId}}--}}"
+  method="POST"
+>
 
-<br>
+  <label for="taskComment">Task comment: *</label>
+  <input
+    id="taskComment"
+    name="taskComment"
+    type="text"
+    value="{{taskComment}}"
+    required>
+  
+  <button type="submit">Submit</button>
+</form>
 
-<button class="btn btn-info" onclick="location.href='/clients/client/{{clientId}}/edit'" >Update</button>
+{{#if error}}
+  <h4>Error: </h4>
+  <p class="is-red"> {{error}} </p>
+{{/if}}
 
-<button class="btn btn-danger" onclick="location.href='/clients/delete/{{clientId}}'">Delete Client</button>
+
