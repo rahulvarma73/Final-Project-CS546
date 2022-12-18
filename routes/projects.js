@@ -38,7 +38,8 @@ router
     try {
       if (!req.session.user)
         return res.render("users/userLogin", { title: "Login" });
-
+      var user = await userData.getUserByEmail(email);
+      var user_Id = user._id;
       var projectName = req.body.projectName;
       var projectDescription = req.body.projectDescription;
       var clientName = req.body.clientName;
@@ -46,8 +47,7 @@ router
       projectDescription = helpers1.checkInputIsString(projectDescription);
       clientName = helpers1.checkInputIsString(clientName);
       let email = helpers1.validuseremail(req.session.user);
-      var user = await userData.getUserByEmail(email);
-      var user_Id = user._id;
+
       var allClients = await clientData.getAllClient(user_Id);
       await projectData.createProject(
         user._id,
@@ -168,13 +168,13 @@ router.route("/delete/:projectId").post(async (req, res) => {
     if (!req.session.user) {
       return res.render("users/userLogin", { title: "Login" });
     }
+    const user = await userData.getUserByEmail(req.session.user);
+    var userId = user._id;
     //   router validation
     req.params.projectId = validation.checkInputIsObjectId(
       req.params.projectId
     );
 
-    const user = await userData.getUserByEmail(req.session.user);
-    let userId = user._id;
     const project = await projectData.getProjectById(req.params.projectId);
 
     const allClients = await projectData.deleteProject(req.params.projectId);
@@ -196,7 +196,7 @@ router.route("/project/:projectId/edit").get(async (req, res) => {
     if (!req.session.user)
       return res.render("users/userLogin", { title: "Login" });
     const user = await userData.getUserByEmail(req.session.user);
-    const user_Id = user._id;
+    var user_Id = user._id;
     // validation
     req.params.projectId = validation.checkInputIsObjectId(
       req.params.projectId
@@ -239,7 +239,7 @@ router.route("/project/:projectId/edit").post(async (req, res) => {
     if (!req.session.user)
       return res.render("users/userLogin", { title: "Login" });
     const user = await userData.getUserByEmail(req.session.user);
-    const user_Id = user._id;
+    var user_Id = user._id;
     req.params.projectId = helpers1.checkInputIsObjectId(req.params.projectId);
     const project = await projectData.getProjectById(req.params.projectId);
     var projectName = req.body.projectName;
@@ -310,13 +310,13 @@ router.route("/project/:projectId/complete").post(async (req, res) => {
     if (!req.session.user) {
       return res.render("users/userLogin", { title: "Login" });
     }
+    const user = await userData.getUserByEmail(req.session.user);
+    let userId = user._id;
     //   router validation
     req.params.projectId = validation.checkInputIsObjectId(
       req.params.projectId
     );
 
-    const user = await userData.getUserByEmail(req.session.user);
-    let userId = user._id;
     const project = await projectData.getProjectById(req.params.projectId);
 
     let updateEndDate = await projectData.setEndDate(req.params.projectId);

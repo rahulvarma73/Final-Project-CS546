@@ -32,6 +32,8 @@ router
     try {
       if (!req.session.user)
         return res.render("users/userLogin", { title: "Login" });
+      var user = await userData.getUserByEmail(req.session.user);
+      var userId = user._id;
       // validation
       var clientFirstName = req.body.clientFirstName;
 
@@ -43,8 +45,7 @@ router
       clientFirstName = helpers1.name(clientFirstName);
       clientLastName = helpers1.name(clientLastName);
       clientEmail = helpers1.validuseremail(clientEmail);
-      var user = await userData.getUserByEmail(req.session.user);
-      var userId = user._id;
+
       await clientData.createClient(
         userId,
         clientFirstName,
@@ -99,10 +100,10 @@ router.route("/delete/:clientId").post(async (req, res) => {
     if (!req.session.user) {
       return res.render("users/userLogin", { title: "Login" });
     }
-    //   router validation
-    req.params.clientId = validation.checkInputIsObjectId(req.params.clientId);
     const user = await userData.getUserByEmail(req.session.user);
     var userId = user._id;
+    //   router validation
+    req.params.clientId = validation.checkInputIsObjectId(req.params.clientId);
 
     const allClients = await clientData.removeClient(
       userId,
@@ -129,9 +130,9 @@ router.route("/:userId").get(async (req, res) => {
     }
     //   router validation
     req.params.userId = validation.checkInputIsObjectId(req.params.userId);
-
-    const allClients = await clientData.getAllClient(req.params.userId);
     var userId = req.params.userId;
+    const allClients = await clientData.getAllClient(req.params.userId);
+
     // checking whether there are clients or not
     let x = false;
     if (!allClients.length) {
@@ -231,16 +232,31 @@ router.route("/client/:clientId/edit").post(async (req, res) => {
   try {
     if (!req.session.user)
       return res.render("users/userLogin", { title: "Login" });
+    const user = await userData.getUserByEmail(req.session.user);
+    var userId = user._id;
+    var clientGender = req.body.clientGender;
+    var gender = [];
+    if (clientGender == "Male") {
+      gender.push("Male");
+      gender.push("Female");
+      gender.push("Others");
+    } else if (clientGender == "Female") {
+      gender.push("Female");
+      gender.push("Male");
+      gender.push("Others");
+    } else {
+      gender.push("Others");
+      gender.push("Male");
+      gender.push("Female");
+    }
 
     var clientFirstName = req.body.clientFirstName;
     var clientLastName = req.body.clientLastName;
     var clientEmail = req.body.clientEmail;
-    var clientGender = req.body.clientGender;
+
     clientEmail = helpers1.validuseremail(clientEmail);
     clientLastName = helpers1.name(clientLastName);
     clientFirstName = helpers1.name(clientFirstName);
-    var user = await userData.getUserByEmail(req.session.user);
-    var userId = user._id;
 
     await clientData.updateClient(
       user._id,
@@ -257,6 +273,7 @@ router.route("/client/:clientId/edit").post(async (req, res) => {
       fname: clientFirstName,
       lname: clientLastName,
       email: clientEmail,
+      gender: gender,
       error: error,
       clientId: req.params.clientId,
       userId: userId,
