@@ -39,8 +39,10 @@
   <dd>{{eDate}}</dd>
   <dt> Total Duration: </dt>
   <dd>{{totalDuration}}</dd>
+  <dt> Tasks: </dt>
 </dl> 
 
+<button class="btn btn-info"onclick="location.href='/tasks/{{projectId}}'"> Go To Tasks Page </button>
 </div>
 
 
@@ -58,3 +60,5 @@
 <button class="is-red" onclick="location.href='/projects/delete/{{projectId}}'">Delete Project</button>
 
 <button onclick="location.href='/projects/project/{{projectId}}/complete'">Project Complete</button>
+
+<button onclick="location.href='/projects/{{userId}}'"> Back </button>
