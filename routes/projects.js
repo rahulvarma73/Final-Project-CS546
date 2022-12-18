@@ -38,17 +38,17 @@ router
     try {
       if (!req.session.user)
         return res.render("users/userLogin", { title: "Login" });
-      var user = await userData.getUserByEmail(email);
+      var user = await userData.getUserByEmail(req.session.user);
       var user_Id = user._id;
       var projectName = req.body.projectName;
       var projectDescription = req.body.projectDescription;
       var clientName = req.body.clientName;
+      var allClients = await clientData.getAllClient(user_Id);
       projectName = helpers1.pname(projectName);
       projectDescription = helpers1.checkInputIsString(projectDescription);
       clientName = helpers1.checkInputIsString(clientName);
       let email = helpers1.validuseremail(req.session.user);
 
-      var allClients = await clientData.getAllClient(user_Id);
       await projectData.createProject(
         user._id,
         projectName,
