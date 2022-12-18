@@ -129,4 +129,26 @@ body {
     display: inline-block;
   }
   
+  #statistics-max-min-para{
+    width:100%;
+    margin:auto;
+    margin-top:5%;
+    text-align:center
+  }
   
+  #statistics-max-project-data, #statistics-min-project-data{
+    font-size: 20px;
+  }
+
+  .statistics-span{
+    color:#ff6f00
+  }
+
+  #statistics-home-back-button{
+    margin:auto;
+  }
+
+  #statistics-div-home-back-button{
+    margin-top: 20px;
+    text-align: center;
+  }

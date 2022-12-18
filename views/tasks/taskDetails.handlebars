@@ -5,9 +5,9 @@
       <li class="nav-item active">
         <a class="nav-link" href="/">Home </a>
       </li>
-      <li class="nav-item">
+      {{!-- <li class="nav-item">
         <a class="nav-link" href="/clients/{{userId}}">User Clients</a>
-      </li>
+      </li> --}}
       <li class="nav-item">
         <a class="nav-link" href="/user/profile">My Details</a>
       </li>
@@ -28,9 +28,14 @@
   <br />
   <dt>Status: </dt>
   <dd>{{status}}</dd>
+  <br>
+  {{#if taskEndDate}}
+  <dt>End date: <dt>
+  <dd> {{taskEndDate}} <dd>
+  {{/if}}
 </dl>
 
-<br />
+<br>
 
 {{! below part is remaining  ask antih before doing... delete button is remaining}}
 <button
@@ -39,5 +44,42 @@
 
 <button
   class="is-red"
-  onclick="location.href='/clients/delete/{{clientId}}'"
+  onclick="location.href='/tasks/project/{{taskId}}/delete'"
 >Delete Task</button>
+
+<br />
+<br />
+
+<form action="/tasks/project/{{taskId}}" method="POST">
+  Choose for timer
+<input name="taskName"type="text" hidden="false" value={{taskName}} >
+<input name="description"type="text" hidden="false" value={{description}} >
+<input name="duration"type="text" hidden="false" value={{duration}} >
+<input name="status"type="text" hidden="false" value={{status}} >
+<input name="taskId"type="text" hidden="false" value={{taskId}} >
+
+  <button
+    id="start"
+    onclick="location.href='/tasks/project/{{taskId}}'"
+    type="submit"
+    name="start"
+    value="true" 
+  >start</button>
+  <button
+    onclick="location.href='/tasks/project/{{taskId}}'"
+    type="submit"
+    name="stop"
+    value="true"
+  >stop</button>
+  <button
+    onclick="location.href='/tasks/project/{{taskId}}'"
+    type="submit"
+    name="finish"
+    value="true"
+  >finish</button>
+</form>
+
+{{#if error}}
+  <h4>Error: </h4>
+  <p class="is-red"> {{error}} </p>
+{{/if}}
