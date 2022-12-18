@@ -3,11 +3,12 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const data = require("../data");
-const { userData } = require("../data");
+const { userData, projectData } = require("../data");
 const { checkUser } = require("../data/users");
 const { getAllProjects } = require("../data/projects");
 const { getAllProjectsBasedOnSearch } = require("../data/projects");
 const dataUsers = data.userData;
+const helpers1 = require("../helpers1");
 
 router.route("/").get(async (req, res) => {
   //code here for GET
@@ -275,6 +276,52 @@ router.route("/logout").get(async (req, res) => {
     message: "Logged out!",
     title: "Logged out",
   });
+});
+
+router.route("/statistics").get(async (req, res) => {
+  try {
+    if (!req.session.user)
+      return res.render("users/userLogin", { title: "Login" });
+    let email = helpers1.validuseremail(req.session.user);
+    const user = await userData.getUserByEmail(email);
+    var userId = user._id;
+    userId = helpers1.checkInputIsObjectId(userId);
+    let allProjects = await projectData.getAllProjects(userId);
+    let projectsArray = [];
+    let durationArray = [];
+    let x = false;
+    if (!allProjects.length) {
+      x = true;
+    } else {
+      for (let i = 0; i < allProjects.length; i++) {
+        projectsArray.push(allProjects[i].projectName);
+        durationArray.push(allProjects[i].totalDuration);
+      }
+      for (let i = 0; i < durationArray.length; i++) {
+        let index = durationArray[i].indexOf(" ");
+        let numberStr = durationArray[i].substr(0, index);
+        let number = parseFloat(numberStr);
+        durationArray[i] = number;
+      }
+      let minValue = Math.min(...durationArray);
+      let maxValue = Math.max(...durationArray);
+      let minProject = projectsArray[durationArray.indexOf(minValue)];
+      let maxProject = projectsArray[durationArray.indexOf(maxValue)];
+      return res.render("statistics", {
+        title: "Statistics Page",
+        projectsArray: projectsArray,
+        durationArray: durationArray,
+        maxProject: maxProject,
+        minProject: minProject,
+        x: x,
+      });
+    }
+  } catch (e) {
+    return res.status(404).render("error", {
+      message: "Page not found",
+      title: "Error",
+    });
+  }
 });
 
 module.exports = router;

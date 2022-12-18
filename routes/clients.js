@@ -195,6 +195,20 @@ router.route("/client/:clientId/edit").get(async (req, res) => {
     // validation
     req.params.clientId = validation.checkInputIsObjectId(req.params.clientId);
     const client = await clientData.getClientById(userId, req.params.clientId);
+    let gender = [];
+    if (client.gender == "Male") {
+      gender.push("Male");
+      gender.push("Female");
+      gender.push("Others");
+    } else if (client.gender == "Female") {
+      gender.push("Female");
+      gender.push("Male");
+      gender.push("Others");
+    } else {
+      gender.push("Others");
+      gender.push("Male");
+      gender.push("Female");
+    }
 
     return res.render("clients/clientprofileEdit", {
       title: "client Details",
@@ -203,6 +217,7 @@ router.route("/client/:clientId/edit").get(async (req, res) => {
       email: client.email,
       clientId: req.params.clientId,
       userId: userId,
+      gender: gender,
     });
   } catch (error) {
     return res.status(404).render("error", {

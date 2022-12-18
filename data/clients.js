@@ -166,8 +166,8 @@ const updateClient = async (
         $set: {
           "clients.$.cfirstName": cfirstName,
           "clients.$.clastName": clastName,
+          "clients.$.gender": gender,
           "clients.$.email": email,
-          "clients.$.gender:": gender,
         },
       }
     );

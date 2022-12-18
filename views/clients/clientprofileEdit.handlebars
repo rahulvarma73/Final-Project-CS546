@@ -27,10 +27,10 @@
     <input id="clientEmail" name="clientEmail" type="text" value="{{email}}" required>
     <br/>
     <label for="clientGender">Gender: *</label>
-    <select id="clientGender" name="clientGender">
-        <option value="Male">Male</option>
-        <option value="Female">Female</option>
-        <option value="Others">Others</option>
+     <select id="clientGender" name="clientGender">
+        {{#each gender}}
+               <option value="{{this}}">{{this}}</option>
+        {{/each}}
     </select>
     <br/>
 

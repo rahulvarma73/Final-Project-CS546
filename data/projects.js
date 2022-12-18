@@ -43,7 +43,7 @@ const createProject = async (
 
   //   gets updated when user finishes tasks
 
-  let totalDuration = "0";
+  let totalDuration = "0 minutes";
 
   let tasks = [];
 
