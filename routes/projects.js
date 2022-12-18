@@ -276,4 +276,59 @@ router.route("/project/:projectId/edit").post(async (req, res) => {
   }
 });
 
+router.route("/project/:projectId/complete").get(async (req, res) => {
+  try {
+    if (!req.session.user) {
+      return res.render("users/userLogin", { title: "Login" });
+    }
+    let user = await userData.getUserByEmail(req.session.user);
+    var userId = user._id;
+    //   router validation
+    req.params.projectId = validation.checkInputIsObjectId(
+      req.params.projectId
+    );
+
+    const project = await projectData.getProjectById(req.params.projectId);
+
+    return res.render("projects/projectComplete", {
+      title: "Project Complete",
+      pname: project.projectName,
+      projectId: req.params.projectId,
+      userId: userId,
+    });
+  } catch (e) {
+    return res.status(404).render("error", {
+      message: "Page not found",
+      title: "Error",
+    });
+  }
+});
+
+router.route("/project/:projectId/complete").post(async (req, res) => {
+  try {
+    // if not logged in send him to login page
+    if (!req.session.user) {
+      return res.render("users/userLogin", { title: "Login" });
+    }
+    //   router validation
+    req.params.projectId = validation.checkInputIsObjectId(
+      req.params.projectId
+    );
+
+    const user = await userData.getUserByEmail(req.session.user);
+    let userId = user._id;
+    const project = await projectData.getProjectById(req.params.projectId);
+
+    let updateEndDate = await projectData.setEndDate(req.params.projectId);
+
+    // redirect to  AllClients page
+    return res.redirect("/");
+  } catch (e) {
+    return res.status(404).render("error", {
+      message: "Page not found",
+      title: "Error",
+    });
+  }
+});
+
 module.exports = router;

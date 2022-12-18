@@ -1,0 +1,23 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark me-0 ms-0 mt-0 mb-3">
+  <a class="ms-3 navbar-brand me-5" href="/">Time Manager</a>
+  <div class="me-5 navbar-dark navbar" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="/">Home </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/clients/{{userId}}">User Clients</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/user/profile">My Details</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<form action="/projects/project/{{projectId}}/complete" method="post">
+<p>Project Name: {{pname}}</p>
+<p>Is the project completed?</p>
+<button type="submit"> Yes </button>
+</form>
+<button onclick="location.href='/projects/project/{{projectId}}'"> No </button>
