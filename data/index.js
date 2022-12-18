@@ -1,6 +1,7 @@
 const userData = require("./users");
 const projectData = require("./projects");
 const clientData = require("./clients");
+const taskData = require("./tasks");
 const { Collection } = require("mongodb");
 
 // async function main() {
@@ -71,4 +72,5 @@ module.exports = {
   userData: userData,
   projectData: projectData,
   clientData: clientData,
+  taskData: taskData,
 };
