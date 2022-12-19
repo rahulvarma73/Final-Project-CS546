@@ -14,24 +14,24 @@ You should have a label for both the username and password inputs referencing th
 <div class="container"></div>
 <hr>
 <h1>Login Page</h1>
-<br/>
+<br>
 
 <form id="login-form m-2" action="/login" method="post">
     <div class="form-group">
         <label for="userEmail">Email: </label>
         <input id="userEmail" name="userEmail" type="text">
     </div>
-    <br/>
+    <br>
     <div class="form-group">
         <label for="passwordInput">Password: </label>
         <input id="passwordInput" name="passwordInput" type="password">        
     </div>
-    <br/>
+    <br>
     <button class="btn btn-primary" type="submit">Login</button>
 </form>
 <hr>
-<br/>
-<br/>
+<br>
+<br>
 <button class="btn btn-success" onclick="location.href='/register'">Create My Account</button>
 
 {{#if error}}

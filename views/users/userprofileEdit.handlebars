@@ -24,33 +24,33 @@
 
     <label class="form-label" for="userFirstName">First Name: *</label>
     <input class="form-control" id="userFirstName" name="userFirstName" type="text" value="{{fname}}" required>
-    <br/>
+    <br>
     <label class="form-label" for="userLastName">Last Name: *</label>
     <input class="form-control" id="userLastName" name="userLastName" type="text" value="{{lname}}" required>
-    <br/>
+    <br>
     <label class="form-label" for="userGender">Gender: *</label>
     <select class="form-control" id="userGender" name="userGender">
         <option value="Male">Male</option>
         <option value="Female">Female</option>
         <option value="Others">Others</option>
     </select>
-    <br/>
+    <br>
     <label class="form-label" for="passwordInput">New Password: </label>
     <input class="form-control" id="passwordInput" name="passwordInput" type="password">
-    <br/>
+    <br>
 
     <p>required (*)</p>
 
 
     <div class="ms-1 row">
         <button class="col-md-1 col-lg-1 col-sm-2 me-3 btn btn-primary" type="submit">Update</button>
-        <br/>
+        <br>
         <button class="col-md-1 col-lg-1 col-sm-2 me-3 btn btn-warning" type="reset">Reset</button>
-        <br/>
+        <br>
         <button class="col-md-1 col-lg-1 col-sm-2 btn btn-info" onclick="location.href='/user/profile'">Cancel</button>
     </div>
 </form>
-<br/>
+<br>
 
 
 {{#if error}}

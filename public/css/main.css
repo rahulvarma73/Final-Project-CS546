@@ -68,6 +68,10 @@ body {
     border-bottom: 1px dashed #333;
   }
 
+  label{
+    font-size:20px;
+  }
+
   /* button {
     align-items: center;
     background-color: #FFFFFF;
