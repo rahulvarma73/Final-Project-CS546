@@ -17,6 +17,33 @@
 
 <h1>All task</h1>
 
+<form action="/tasks/{{projectId}}" method="POST">
+  Filters
+  <input name="projectId" type="text" hidden="false" value={{projectId}} />
+
+  <button
+  class = "btn btn-info"
+    onclick="location.href='/tasks/{{projectId}}'"
+    type="submit"
+    name="allTask"
+    value="true"
+  >All Task</button>
+  <button
+  class = "btn btn-danger"
+    onclick="location.href='/tasks/{{projectId}}'"
+    type="submit"
+    name="pending"
+    value="true"
+  >Pending</button>
+  <button
+  class = "btn btn-success"
+    onclick="location.href='/tasks/{{projectId}}'"
+    type="submit"
+    name="completed"
+    value="true"
+  >Completed</button>
+</form>
+
 <main>
   <ul>
     {{#each allTask}}
@@ -40,3 +67,4 @@
 <button class="btn btn-primary" onclick="location.href='/tasks/create/{{projectId}}'">
   Add task
 </button>
+<button class="btn btn-warning" onclick="location.href='|go back to project details page|'"> Back </button>

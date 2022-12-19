@@ -15,7 +15,7 @@
   </div>
 </nav>
 
-<h1>Project Details</h1>
+<h1>Update Project Details</h1>
 <form id="projectDetails-update-form" method="POST">
     
 
@@ -45,10 +45,11 @@
     <p>required (*)</p>
     
     <br>
-    <button type="submit">Update</button>  
+    <button class = "btn btn-info" type="submit">Update</button>  
 </form>
+<br>
 
-<button onclick="location.href='/projects/project/{{projectId}}'">Cancel</button>
+<button class = "btn btn-danger" onclick="location.href='/projects/project/{{projectId}}'">Cancel</button>
 
 {{#if error}}
     <h4>Error: </h4>
