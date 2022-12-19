@@ -243,15 +243,19 @@ router.route("/project/:taskid").get(async (req, res) => {
 
     const projectId = await taskData.getProjectId(taskId);
 
-    console.log(allTask);
+    const duration1 = allTask.duration;
+    const array = duration1.split(" ");
+    const num = array[0];
+    let intNum = parseInt(num, 10);
 
-    console.log(allTask.taskEndDate, allTask.comment, allTask.duration);
+    intNum = Math.floor(intNum / 60);
+    const string = intNum + " minutes";
 
     return res.render("tasks/taskDetails", {
       title: "All task",
       taskName: allTask.taskName,
       description: allTask.description,
-      duration: allTask.duration,
+      duration: string,
       status: allTask.status,
       taskId: taskId,
       taskEndDate: allTask.taskEndDate,
@@ -296,11 +300,19 @@ router.route("/project/:taskid").post(async (req, res) => {
       // get task by id
       const allTask = await taskData.getTask(taskId);
 
+      const duration1 = allTask.duration;
+      const array = duration1.split(" ");
+      const num = array[0];
+      let intNum = parseInt(num, 10);
+
+      intNum = Math.floor(intNum / 60);
+      const string = intNum + " minutes";
+
       return res.render("tasks/taskDetails", {
         title: "All task",
         taskName: allTask.taskName,
         description: allTask.description,
-        duration: allTask.duration,
+        duration: string,
         status: allTask.status,
         taskId: taskId,
         taskEndDate: allTask.taskEndDate,
@@ -314,11 +326,19 @@ router.route("/project/:taskid").post(async (req, res) => {
 
       const allTask = await taskData.getTask(taskId);
 
+      const duration1 = allTask.duration;
+      const array = duration1.split(" ");
+      const num = array[0];
+      let intNum = parseInt(num, 10);
+
+      intNum = Math.floor(intNum / 60);
+      const string = intNum + " minutes";
+
       return res.render("tasks/taskDetails", {
         title: "All task",
         taskName: allTask.taskName,
         description: allTask.description,
-        duration: allTask.duration,
+        duration: string,
         status: allTask.status,
         taskId: taskId,
         taskEndDate: allTask.taskEndDate,
@@ -337,11 +357,19 @@ router.route("/project/:taskid").post(async (req, res) => {
     }
   } catch (error) {
     console.log(req.body.taskEndDate, "task id is printitng");
+
+    const duration1 = req.body.duration;
+    const array = duration1.split(" ");
+    const num = array[0];
+    let intNum = parseInt(num, 10);
+
+    intNum = Math.floor(intNum / 60);
+    const string = intNum + " minutes";
     return res.render("tasks/taskDetails", {
       title: "All task",
       taskName: req.body.taskName,
       description: req.body.description,
-      duration: req.body.duration,
+      duration: string,
       status: req.body.status,
       taskId: req.body.taskId,
       taskEndDate: req.body.taskEndDate,
@@ -491,12 +519,20 @@ router.route("/project/:taskId/delete").get(async (req, res) => {
     }
     const task = await taskData.getTask(taskId);
 
+    const duration1 = task.duration;
+    const array = duration1.split(" ");
+    const num = array[0];
+    let intNum = parseInt(num, 10);
+
+    intNum = Math.floor(intNum / 60);
+    const string = intNum + " minutes";
+
     return res.render("tasks/taskDelete", {
       title: "Delete task",
       taskId: task._id,
       taskName: task.taskName,
       description: task.description,
-      duration: task.duration,
+      duration: string,
       status: task.status,
     });
 
@@ -560,12 +596,20 @@ router.route("/project/:taskId/comment").get(async (req, res) => {
       });
     }
     const task = await taskData.getTask(taskId);
+
+    const duration1 = task.duration;
+    const array = duration1.split(" ");
+    const num = array[0];
+    let intNum = parseInt(num, 10);
+
+    intNum = Math.floor(intNum / 60);
+    const string = intNum + " minutes";
     return res.render("tasks/taskComment", {
       title: "Comment task",
       taskId: task._id,
       taskName: task.taskName,
       description: task.description,
-      duration: task.duration,
+      duration: string,
       status: task.status,
       taskEndDate: task.taskEndDate,
     });

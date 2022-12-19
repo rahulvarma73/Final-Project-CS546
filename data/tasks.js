@@ -405,16 +405,18 @@ const stopTimer = async (taskid) => {
   console.log(minutes);
 
   var seconds = res % 60;
+  console.log(seconds);
 
   let total = days + hours + minutes + seconds;
-  total = Math.floor(total / 60);
+
+  // total = Math.floor(total / 60);  //{{{{{{{{{{{{{{{{{change back}}}}}}}}}}}}}}}}}
 
   // returned minute - total is in minute form
   console.log(total);
 
   if (task.duration == "0 minutes" || task.duration == "NaN minutes ") {
     let string = "";
-    string = total + " minutes ";
+    string = total + " seconds"; //{{{{{{{{{{{{{{{{{{{seconds to minutes}}}}}}}}}}}}}}}}}}}
 
     await updateDuration(taskid, string);
     console.log("if running");
@@ -428,7 +430,7 @@ const stopTimer = async (taskid) => {
     lastduration = lastduration.toString();
     console.log("last DUration", typeof lastduration, lastduration);
 
-    string = lastduration + " minutes ";
+    string = lastduration + " seconds"; //{{{{{{{{{{{{{{{{{{{{{{seconds to minutes}}}}}}}}}}}}}}}}}}}}}}
     console.log(string);
 
     await updateDuration(taskid, string);
@@ -572,6 +574,8 @@ const updateDuration = async (taskid, duration) => {
   if (!updateInfo.matchedCount && !updateInfo.modifiedCount) {
     throw "Update failed";
   }
+
+  await updateProjectDuration(taskid);
   console.log("UPDATE duration ran successfully");
 };
 
@@ -605,6 +609,48 @@ const updateComment = async (taskid, comment) => {
   console.log("UPDATE comment ran successfully");
 };
 
+//ADD TOTAL DURATION TO PROJECT
+const updateProjectDuration = async (taskid) => {
+  // error handling
+  helper.idCheck(taskid);
+
+  if (!ObjectId.isValid(taskid)) {
+    throw "taskid  is not valid id";
+  }
+  // do task exist
+  const task = await getTask(taskid); // if task doesnt exist getTASK FUCNTION WILL THROW ERROR
+
+  const projectCollection = await projects();
+
+  const alltask = await projectCollection.findOne({
+    "tasks._id": ObjectId(taskid),
+  });
+  const tasks = alltask.tasks;
+  var sum = 0;
+  for (let x of tasks) {
+    console.log(x);
+    let duration = x.duration;
+    const array = duration.split(" ");
+    const number = parseInt(array[0], 10);
+    sum = sum + number;
+  }
+  console.log(sum); //have to update this
+  const duration = sum + " minutes";
+  const updateInfo = await projectCollection.updateOne(
+    { "tasks._id": ObjectId(taskid) },
+    { $set: { totalDuration: duration } }
+  );
+
+  if (updateInfo.matchedCount == 0) {
+    throw "task doesnt exist";
+  }
+
+  if (!updateInfo.matchedCount && !updateInfo.modifiedCount) {
+    throw "Update failed";
+  }
+  console.log("UPDATE duration ran successfully");
+};
+
 module.exports = {
   createTask,
   removeTask,
@@ -623,4 +669,5 @@ module.exports = {
   updateDuration,
   updateComment,
   finishTimer,
+  updateProjectDuration,
 };
