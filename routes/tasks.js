@@ -6,6 +6,7 @@ const userData = data.userData;
 const taskData = data.taskData;
 
 const { ObjectId } = require("mongodb");
+const xss = require('xss');
 
 // AFTER PROJECT> ALL TASK LIST UNDER THOSE PROJECT
 router.route("/:projectId").get(async (req, res) => {
@@ -75,9 +76,9 @@ router.route("/:projectId").post(async (req, res) => {
         title: "Error",
       });
     }
-    const allTask = req.body.allTask;
-    const pending = req.body.pending;
-    const completed = req.body.completed;
+    const allTask = xss(req.body.allTask);
+    const pending = xss(req.body.pending);
+    const completed = xss(req.body.completed);
 
     if (allTask == "true") {
       const allTask = await taskData.getAllTask(projectId);
@@ -179,12 +180,12 @@ router
         });
       }
 
-      var description = req.body.description;
+      var description = xss(req.body.description);
 
       helper.stringCheck("description", description);
       description = description.trim();
 
-      var taskName = req.body.taskName;
+      var taskName = xss(req.body.taskName);
       helper.stringCheck("Task name", taskName);
       taskName = taskName.trim();
 
@@ -289,9 +290,9 @@ router.route("/project/:taskid").post(async (req, res) => {
         title: "Error",
       });
     }
-    let start = req.body.start;
-    let stop = req.body.stop;
-    let finish = req.body.finish;
+    let start = xss(req.body.start);
+    let stop = xss(req.body.stop);
+    let finish = xss(req.body.finish);
     let error = "";
 
     if (start === "true") {
@@ -356,9 +357,9 @@ router.route("/project/:taskid").post(async (req, res) => {
       return res.redirect("/tasks/project/" + taskId + "/comment");
     }
   } catch (error) {
-    console.log(req.body.taskEndDate, "task id is printitng");
+    console.log(xss(req.body.taskEndDate), "task id is printitng");
 
-    const duration1 = req.body.duration;
+    const duration1 = xss(req.body.duration);
     const array = duration1.split(" ");
     const num = array[0];
     let intNum = parseInt(num, 10);
@@ -367,13 +368,13 @@ router.route("/project/:taskid").post(async (req, res) => {
     const string = intNum + " minutes";
     return res.render("tasks/taskDetails", {
       title: "All task",
-      taskName: req.body.taskName,
-      description: req.body.description,
+      taskName: xss(req.body.taskName),
+      description: xss(req.body.description),
       duration: string,
-      status: req.body.status,
-      taskId: req.body.taskId,
-      taskEndDate: req.body.taskEndDate,
-      comment: req.body.comment,
+      status: xss(req.body.status),
+      taskId: xss(req.body.taskId),
+      taskEndDate: xss(req.body.taskEndDate),
+      comment: xss(req.body.comment),
       error: error,
     });
     // return res.render("error", {
@@ -438,12 +439,12 @@ router
       const taskExisted = await taskData.getTask(taskId);
       console.log("task EXisted", taskId);
 
-      var description = req.body.description;
+      var description = xss(req.body.description);
 
       helper.stringCheck("description", description);
       description = description.trim();
 
-      var taskName = req.body.taskName;
+      var taskName = xss(req.body.taskName);
       helper.stringCheck("Task name", taskName);
       taskName = taskName.trim();
 
