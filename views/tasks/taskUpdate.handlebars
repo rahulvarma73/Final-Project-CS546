@@ -45,7 +45,8 @@
   <button class="btn btn-info" type="submit">Update Task</button>
 </form>
 <br>
-<button class="btn btn-warning" onclick="|should go to task details page|">Cancel</button>
+
+<button class="btn btn-warning" onclick="location.href='/tasks/project/{{taskId}}'"> Cancel </button>
 
 {{#if error}}
   <h4>Error: </h4>
