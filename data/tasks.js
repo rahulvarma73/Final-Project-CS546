@@ -633,6 +633,7 @@ const updateProjectDuration = async (taskid) => {
     const array = duration.split(" ");
     const number = parseInt(array[0], 10);
     sum = sum + number;
+    sum = Math.floor(sum / 60);
   }
   console.log(sum); //have to update this
   const duration = sum + " minutes";
