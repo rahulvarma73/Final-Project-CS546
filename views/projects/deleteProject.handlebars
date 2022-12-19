@@ -18,6 +18,7 @@
 <form action="/projects/delete/{{projectId}}" method="post">
 <p>Project Name: {{pname}}</p>
 <p>Are You Sure You Want To Delete The project?</p>
-<button type="submit"> Yes </button>
+<button class = "btn btn-danger" type="submit"> Yes </button>
 </form>
-<button onclick="location.href='/projects/project/{{projectId}}'"> No </button>
+<br>
+<button class = "btn btn-warning" onclick="location.href='/projects/project/{{projectId}}'"> No </button>

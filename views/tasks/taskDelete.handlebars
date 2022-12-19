@@ -16,8 +16,9 @@
 </nav>
 
 <form action="/tasks/project/{{taskId}}/delete" method="post">
-  <p>task Name: {{taskName}}</p>
+  <p>Task Name: {{taskName}}</p>
   <p>Are You Sure You Want To Delete The Task?</p>
-  <button type="submit"> Yes </button>
+  <button class="btn btn-danger" type="submit"> Yes </button>
 </form>
-<button onclick="location.href='/tasks/project/{{taskId}}'"> No </button>
+<br>
+<button class="btn btn-warning" onclick="location.href='/tasks/project/{{taskId}}'"> No </button>

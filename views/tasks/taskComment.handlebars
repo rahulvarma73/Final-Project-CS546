@@ -18,19 +18,20 @@
 <h1>Task Comment for {{taskName}}:</h1>
 <form
   id="taskComment-form" 
-  action="{{!--   /tasks/create/{{projectId}}--}}"
+  action="/tasks/project/{{taskId}}/comment"
   method="POST"
 >
 
   <label for="taskComment">Task comment: *</label>
   <input
     id="taskComment"
-    name="taskComment"
+    name="comment"
     type="text"
-    value="{{taskComment}}"
+    value="{{comment}}"
     required>
-  
-  <button type="submit">Submit</button>
+  <br><br>
+  <button class="btn btn-success" type="submit">Submit</button>
+  <button class="btn btn-warning" onclick="location.href='|go back to all tasks page|'"> Back </button>
 </form>
 
 {{#if error}}

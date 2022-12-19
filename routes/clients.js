@@ -5,6 +5,7 @@ const helpers1 = require("../helpers1");
 const userData = data.userData;
 const clientData = data.clientData;
 const validation = helpers1;
+const xss = require('xss');
 
 // create clients
 router
@@ -250,9 +251,9 @@ router.route("/client/:clientId/edit").post(async (req, res) => {
       gender.push("Female");
     }
 
-    var clientFirstName = req.body.clientFirstName;
-    var clientLastName = req.body.clientLastName;
-    var clientEmail = req.body.clientEmail;
+    var clientFirstName = xss(req.body.clientFirstName);
+    var clientLastName = xss(req.body.clientLastName);
+    var clientEmail = xss(req.body.clientEmail);
 
     clientEmail = helpers1.validuseremail(clientEmail);
     clientLastName = helpers1.name(clientLastName);

@@ -42,10 +42,16 @@
   <dt> Tasks: </dt>
 </dl> 
 
-<button class="btn btn-info"onclick="location.href='/tasks/{{projectId}}'"> Go To Tasks Page </button>
+<button class="btn btn-primary"onclick="location.href='/tasks/{{projectId}}'"> Go To Tasks Page </button>
 </div>
+<br>
+<button class="btn btn-info" onclick="location.href='/projects/project/{{projectId}}/edit'" >Update</button>
 
+<button class="btn btn-danger" onclick="location.href='/projects/delete/{{projectId}}'">Delete Project</button>
 
+<button class="btn btn-success" onclick="location.href='/projects/project/{{projectId}}/complete'">Project Complete</button>
+
+<button class="btn btn-warning" onclick="location.href='/projects/{{userId}}'"> Back </button>
 
 <hr>
 
@@ -55,10 +61,4 @@
 </form>
 <br>
 
-<button onclick="location.href='/projects/project/{{projectId}}/edit'" >Update</button>
 
-<button class="is-red" onclick="location.href='/projects/delete/{{projectId}}'">Delete Project</button>
-
-<button onclick="location.href='/projects/project/{{projectId}}/complete'">Project Complete</button>
-
-<button onclick="location.href='/projects/{{userId}}'"> Back </button>

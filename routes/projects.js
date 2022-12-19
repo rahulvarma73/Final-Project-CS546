@@ -6,6 +6,7 @@ const userData = data.userData;
 const clientData = data.clientData;
 const projectData = data.projectData;
 const validation = helpers1;
+const xss = require('xss');
 
 router
   .route("/create")
@@ -40,9 +41,9 @@ router
         return res.render("users/userLogin", { title: "Login" });
       var user = await userData.getUserByEmail(req.session.user);
       var user_Id = user._id;
-      var projectName = req.body.projectName;
-      var projectDescription = req.body.projectDescription;
-      var clientName = req.body.clientName;
+      var projectName = xss(req.body.projectName);
+      var projectDescription = xss(req.body.projectDescription);
+      var clientName = xss(req.body.clientName);
       var allClients = await clientData.getAllClient(user_Id);
       projectName = helpers1.pname(projectName);
       projectDescription = helpers1.checkInputIsString(projectDescription);
@@ -242,9 +243,9 @@ router.route("/project/:projectId/edit").post(async (req, res) => {
     var user_Id = user._id;
     req.params.projectId = helpers1.checkInputIsObjectId(req.params.projectId);
     const project = await projectData.getProjectById(req.params.projectId);
-    var projectName = req.body.projectName;
-    var projectDescription = req.body.projectDescription;
-    var clientName = req.body.clientName;
+    var projectName = xss(req.body.projectName);
+    var projectDescription = xss(req.body.projectDescription);
+    var clientName = xss(req.body.clientName);
     var startDate = project.startDate;
     var endDate = project.endDate;
     var totalDuration = project.totalDuration;

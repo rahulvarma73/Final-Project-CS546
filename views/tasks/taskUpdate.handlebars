@@ -31,7 +31,7 @@
     required
   />
 
-  <br />
+  <br>
   <label for="description">Description: *</label>
   <input
     id="description"
@@ -42,10 +42,10 @@
   />
   <p>required (*)</p>
 
-  <button type="submit">Update Task</button>
+  <button class="btn btn-info" type="submit">Update Task</button>
 </form>
-
-<button class="btn btn-info" onclick="|should go to task details page|">Cancel</button>
+<br>
+<button class="btn btn-warning" onclick="|should go to task details page|">Cancel</button>
 
 {{#if error}}
   <h4>Error: </h4>
