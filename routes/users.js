@@ -9,6 +9,7 @@ const { getAllProjects } = require("../data/projects");
 const { getAllProjectsBasedOnSearch } = require("../data/projects");
 const dataUsers = data.userData;
 const helpers1 = require("../helpers1");
+const xss = require('xss');
 
 router.route("/").get(async (req, res) => {
   //code here for GET
@@ -36,11 +37,11 @@ router
     //code here for POST
     try {
       let result = await dataUsers.createUser(
-        req.body.userFirstName,
-        req.body.userLastName,
-        req.body.userEmail,
-        req.body.userGender,
-        req.body.passwordInput
+        xss(req.body.userFirstName),
+        xss(req.body.userLastName),
+        xss(req.body.userEmail),
+        xss(req.body.userGender),
+        xss(req.body.passwordInput)
       );
       if (result.insertedUser) {
         return res.redirect("/");
@@ -64,11 +65,11 @@ router.route("/login").post(async (req, res) => {
   //code here for POST
   try {
     const result = await dataUsers.checkUser(
-      req.body.userEmail,
-      req.body.passwordInput
+      xss(req.body.userEmail),
+      xss(req.body.passwordInput)
     );
     if (result.authenticatedUser) {
-      req.session.user = req.body.userEmail.toLowerCase().trim();
+      req.session.user = xss(req.body.userEmail.toLowerCase().trim());
       const user = await userData.getUserByEmail(req.session.user);
       req.session.userId = user._id;
       console.log(user._id, req.session.userId);
@@ -203,10 +204,10 @@ router
       user = await userData.getUserByEmail(req.session.user);
       await dataUsers.updateUserByID(
         user._id,
-        req.body.userFirstName,
-        req.body.userLastName,
-        req.body.userGender,
-        req.body.passwordInput
+        xss(req.body.userFirstName),
+          xss(req.body.userLastName),
+            xss(req.body.userGender),
+              xss(req.body.passwordInput)
       );
       return res.redirect("/user/profile");
     } catch (error) {
@@ -242,7 +243,7 @@ router
         return res.render("users/userLogin", { title: "Login" });
       const result = await dataUsers.checkUser(
         req.session.user,
-        req.body.passwordInput
+        xss(req.body.passwordInput)
       );
       if (result.authenticatedUser) {
         const user = await userData.getUserByEmail(req.session.user);
