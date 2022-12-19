@@ -19,31 +19,31 @@
 <dl>
   <dt>Task Name: </dt>
   <dd>{{taskName}}</dd>
-  <br />
   <dt>Task Description: </dt>
   <dd>{{description}}</dd>
-  <br />
   <dt>Duration: </dt>
   <dd>{{duration}}</dd>
-  <br />
   <dt>Status: </dt>
   <dd>{{status}}</dd>
-  <br>
   {{#if taskEndDate}}
   <dt>End date: <dt>
   <dd> {{taskEndDate}} <dd>
   {{/if}}
+  {{#if comment}}
+  <dt>Comment: <dt>
+  <dd> {{comment}} <dd>
+{{/if}}
 </dl>
 
-<br>
 
 {{! below part is remaining  ask antih before doing... delete button is remaining}}
 <button
+class="btn btn-info"
   onclick="location.href='/tasks/project/{{taskId}}/update'"
 >Update Task</button>
 
 <button
-  class="is-red"
+  class="btn btn-danger"
   onclick="location.href='/tasks/project/{{taskId}}/delete'"
 >Delete Task</button>
 
@@ -52,33 +52,42 @@
 
 <form action="/tasks/project/{{taskId}}" method="POST">
   Choose for timer
-<input name="taskName"type="text" hidden="false" value={{taskName}} >
+  <input name="taskName"type="text" hidden="false" value={{taskName}} >
 <input name="description"type="text" hidden="false" value={{description}} >
 <input name="duration"type="text" hidden="false" value={{duration}} >
 <input name="status"type="text" hidden="false" value={{status}} >
 <input name="taskId"type="text" hidden="false" value={{taskId}} >
+<input name="comment"type="text" hidden="false" value={{comment}} >
+<input name="taskEndDate"type="text" hidden="false" value={{taskEndDate}} >
 
   <button
-    id="start"
-    onclick="location.href='/tasks/project/{{taskId}}'"
+  class="btn btn-success"
+    id="start-button-final"
+    onclick="location.href='/tasks/project/{{taskId}}'; myStartFunction();"
     type="submit"
     name="start"
     value="true" 
   >start</button>
   <button
-    onclick="location.href='/tasks/project/{{taskId}}'"
+  class="btn btn-warning"
+    id="stop-button-final"
+    onclick="location.href='/tasks/project/{{taskId}}'; myStopFunction();"
     type="submit"
     name="stop"
     value="true"
   >stop</button>
   <button
-    onclick="location.href='/tasks/project/{{taskId}}'"
+    class="btn btn-danger"
+    id="finish-button-final"
+    onclick="location.href='/tasks/project/{{taskId}}'; myFinishFunction();"
     type="submit"
     name="finish"
     value="true"
   >finish</button>
 </form>
-
+<br>
+<button class="btn btn-warning" onclick="location.href='|go back to all tasks page|'"> Back </button>
+<br><br>
 {{#if error}}
   <h4>Error: </h4>
   <p class="is-red"> {{error}} </p>
