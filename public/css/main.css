@@ -1,6 +1,11 @@
 /*
 You will style your page using at least 10 CSS selectors for general CSS styling. You will place the CSS in its own file. You must style the is-green class to make text have a color of #00E676 and is-red class to make text have a color of #FF3D00.
 */
+
+*{
+  background-color: #e9f8ff;
+}
+
 .is-green {
     color: #00E676;
 }
@@ -70,6 +75,17 @@ body {
 
   label{
     font-size:20px;
+  }
+
+  ul{
+    list-style: none;
+    padding-left:0px;
+    font-size:20px;
+  }
+
+
+  a{
+    text-decoration: none;
   }
 
   /* button {
@@ -155,4 +171,20 @@ body {
   #statistics-div-home-back-button{
     margin-top: 20px;
     text-align: center;
+  }
+
+  nav a{ 
+    background-color: #212529;
+  }
+
+  nav div{
+    background-color: #212529;
+  }
+  
+  .all-margin{
+    margin-left: 30px;
+  }
+
+  #font-size-details{
+    font-size:x-large;
   }

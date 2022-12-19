@@ -15,7 +15,7 @@
   </div>
 </nav>
 
-<h1>All task</h1>
+<h1>All task</h1><br>
 
 <form action="/tasks/{{projectId}}" method="POST">
   Filters
@@ -42,15 +42,15 @@
     name="completed"
     value="true"
   >Completed</button>
-</form>
+</form><br>
 
-<main>
+<main class="all-margin">
   <ul>
     {{#each allTask}}
       <li>
         <a href="/tasks/project/{{this._id}}">
           {{!-- <h2>{{this._id}}</h2> --}}
-          <p>{{this.taskName}}</p> 
+          <h2>{{this.taskName}} </h2>
         </a>
       </li>
     {{/each}}
@@ -62,9 +62,9 @@
   <p>Add tasks by clicking the Add Task button</p>
 
 {{/if}}
-
+<br>
 {{! have to execute in future }}
 <button class="btn btn-primary" onclick="location.href='/tasks/create/{{projectId}}'">
   Add task
 </button>
-<button class="btn btn-warning" onclick="location.href='|go back to project details page|'"> Back </button>
+<button class="btn btn-warning" onclick="location.href='/projects/project/{{projectId}}'"> Back </button>

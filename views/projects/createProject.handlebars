@@ -15,7 +15,7 @@
   </div>
 </nav>
 
-<h1>Create Project</h1>
+<h1>Create Project</h1><br>
 {{#if x}}
 <p>No Clients to create Projects</p>
    <button onclick="location.href='/clients/{{userId}}'"> Create Client </button>
@@ -27,17 +27,17 @@
 
     <label for="projectName">Project Name: *</label>
     <input id="projectName" name="projectName" type="text" value="{{pname}}" required>
-    <br>
+    <br><br>
     <label for="projectDescription">Project Description *</label>
     <input id="projectDescription" name="projectDescription" type="text" value="{{pdescription}}" required>
-    <br>
+    <br><br>
      <label for="clientName">Client Name: *</label>
     <select id="clientName" name="clientName">
         {{#each clients}}
                <option value="{{this.cfirstName}} {{this.clastName}}">{{this.cfirstName}} {{this.clastName}}</option>
         {{/each}}
     </select>
-    <br>
+    <br><br>
 
     <p>required (*)</p>
     

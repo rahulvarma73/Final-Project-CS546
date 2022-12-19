@@ -15,7 +15,7 @@
   </div>
 </nav>
 
-<h1>Create task </h1>
+<h1>Create task </h1><br>
 <form
   id="createTask-form" {{!--changes made to the id from createClient-form--}} 
   action="   /tasks/create/{{projectId}}"
@@ -42,7 +42,7 @@
 <br><br>
   <button class="btn btn-info" type="submit">Add Task</button>
 </form><br>
-<button class="btn btn-warning" onclick="location.href='|go back to all tasks page|'"> Back </button>
+<button class="btn btn-warning" onclick="location.href='/tasks/{{projectId}}'"> Back </button>
 
 {{#if error}}
   <h4>Error: </h4>
