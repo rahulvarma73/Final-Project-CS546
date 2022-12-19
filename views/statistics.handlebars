@@ -3,84 +3,28 @@
    <a class="nav-link" href="/">Home </a>
 
 {{else}}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
-<canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+<main>
+    <div id="statistics-max-min-para">
+    <h1 id="statistics-h1-page" style="margin-bottom:30px;">PROJECT STATISTICS:</h1>
+    <p id="projectNameArray" hidden >{{projectsArray}}</p>
+    <p id="projectDurationArray" hidden>{{durationArray}}</p>
+    <p id="statistics-max-project-data">Max time taken on: <span class="statistics-span">{{maxProject}}</span></p>
+    <p id="statistics-min-project-data">Min time taken on: <span class="statistics-span">{{minProject}}</span></p>
+    </div>
+</main>
+{{/if}}
+
+
+<canvas id="myChart" style="width:100%;max-width:800px;margin:auto"></canvas>
 
 <script>
-var x = document.getElementById("projectNameArray");    
-var y = document.getElementById("projectDurationArray");
-function validInput(inputedText) {
- 
-  let openBrac = -1;
-  let openBracIndex = -1;
-  let closeBracIndex = -1;
-  let arr = [];
-  if (!inputedText) {
-    return "Error: input is empty";
-  }
-  for (let i = 0; i < inputedText.length; i++) {
-    if (
-      (inputedText.charCodeAt(i) >= 48 && inputedText.charCodeAt(i) <= 57) ||
-      inputedText.charCodeAt(i) == 91 ||
-      inputedText.charCodeAt(i) == 93 ||
-      inputedText.charCodeAt(i) == 44 ||
-      inputedText.charCodeAt(i) == 32 ||
-      inputedText.charCodeAt(i) == 45
-    ) {
-      if (inputedText.charCodeAt(i) == 91) {
-        if (openBrac == 1) {
-          return "Error: invalid brackets";
-        }
-        openBrac = 1;
-        openBracIndex = i;
-      } else if (openBrac == 1 && inputedText.charCodeAt(i) == 93) {
-        closeBracIndex = i;
-        openBrac = -1;
-        if (openBracIndex != closeBracIndex - 1) {
-          arr.push(inputedText.substring(openBracIndex, closeBracIndex + 1));
-        } else {
-          return "Error: Array should have atleast one element";
-        }
-      } else if (openBrac == -1 && inputedText.charCodeAt(i) == 93) {
-        return "Error: invalid brackets";
-      } else if (
-        openBrac == -1 &&
-        inputedText.charCodeAt(i) != 44 &&
-        inputedText.charCodeAt(i) != 32
-      ) {
-        return "Error: Invalid Input inside";
-      }
-    } else {
-      return "Error: Invalid Input";
-    }
-  }
-  if (openBrac == 1) {
-    return "Error: Invalid Brakets";
-  }
-  try {
-    for (let i = 0; i < arr.length; i++) {
-      let temp = JSON.parse(arr[i]);
-      arr[i] = temp;
-    }
-  } catch {
-    return "error: invalid integer";
-  }
+var x = document.getElementById("projectNameArray").innerHTML;    
+var y = document.getElementById("projectDurationArray").innerHTML;
+ x = x.split(",");
+ y = y.split(",")
 
-  let finalarr = [];
-  for (let i = 0; i < arr.length; i++) {
-    finalarr = finalarr.concat(arr[i]);
-  }
-
-  return finalarr;
-}
-
-var a = validInput(x);
-var b = validInput(y);
-
-
-
-var xValues = a;
-var yValues = b;
+var xValues = x;
+var yValues = y;
 var barColors = [
   "#b91d47",
   "#00aba9",
@@ -118,19 +62,10 @@ new Chart("myChart", {
   },
   options: {
     title: {
-      display: true,
-      text: "World Wide Wine Production 2018"
+      display: true
     }
   }
 });
 </script>
+<div id="statistics-div-home-back-button"><button class="btn btn-info" id="statistics-home-back-button" onclick="location.href='/'"> Home</button></div>
 
-<main>
-    <div id="statistics-max-min-para" style="width:100%;margin-top:5%;text-align:center;">
-    <p id="projectNameArray" hidden>{{projectsArray}}</p>
-    <p id="projectDurationArray" hidden>{{durationArray}}</p>
-    <p>Max time taken on: {{maxProject}}</p>
-    <p>Min time taken on: {{minProject}}</p>
-    </div>
-</main>
-{{/if}}
